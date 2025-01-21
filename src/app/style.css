@@ -1,0 +1,17 @@
+body {
+  font-family: "Golos Text", sans-serif;
+  font-weight: 400;
+  background-color: #fff;
+  font-family: regular, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #1e212a;
+  position: relative;
+}
+
+#root {
+  width: 100vw;
+  min-width: 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

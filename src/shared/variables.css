@@ -1,0 +1,9 @@
+:root {
+    /* Light mode */
+    --color-background: #f1f4f9;
+    --color-background-container: #ffffff;
+    --color-font-disable: #606264;
+    --color-font: #38424f;
+    --color-action: #11519c;
+    --color-warning: #e94242;
+  }
