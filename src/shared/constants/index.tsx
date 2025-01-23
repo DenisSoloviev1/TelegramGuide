@@ -1,6 +1,19 @@
+export type NavItem = {
+  [key: string]: string;
+};
+
 export enum Routes {
-  WALCOMING = "/",
   NOTFOUND = "*",
+  HOME = "/",
   AUTH = "/auth",
-  MAIN = "/main",
+  POSTS = "/posts",
+  COLLECTIONS = "/collections",
+  NOMINATIONS = "/nominations",
 }
+
+export const NavItem: NavItem = {
+  "/": "главная",
+  "/posts": "публикации",
+  "/collections": "подборки",
+  "/nominations": "номинации",
+};

@@ -5,8 +5,9 @@ import { baseUrl } from ".";
  * Универсальный интерфейс ответа от сервера.
  */
 export interface IResponse<T> {
+  data: T; // Тип данных, возвращаемых сервером.
+  success: boolean; // Указывает на успешность запроса.
   error?: string; // Сообщение об ошибке, если запрос неуспешен.
-  results: T;
 }
 
 /**
@@ -46,7 +47,7 @@ export const apiRequest = async <T>(
   } catch (error: any) {
     console.error(
       `Ошибка при запросе ${method} ${endpoint}:`,
-      error.response?.data?.error || error.message
+      error.response || error.message
     );
     throw error;
   }

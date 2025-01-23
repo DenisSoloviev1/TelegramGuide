@@ -25,15 +25,12 @@ a,
 a:link,
 a:visited {
   text-decoration: none;
-  font-weight: 400;
-  transition: all 0.1s ease-in;
+  font-weight: 500;
+  transition: all 0.2s ease-in;
   cursor: pointer;
-  color: #2a9ee9;
+  color: #002de3;
 }
 
-a:hover{
-  text-decoration: underline;
-}
 
 /* Common */
 
