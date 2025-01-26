@@ -1,38 +1,59 @@
 import React from "react";
-import { PostCard, Image, PostTitle, Date, Text, EditButton } from "./style";
+import {
+  PostCard,
+  Image,
+  PostName,
+  PublicDate,
+  Text,
+  ActionButton,
+} from "./style";
 import { IPost } from "../model";
-import { CalendarSvg, EditSvg, Flex } from "@/shared/ui";
+import { CalendarSvg, DeleteSvg, EditSvg, Flex } from "@/shared/ui";
+import { baseUrl } from "@/shared/config";
+import { formatterDate } from "@/shared/lib";
+import { useAuthStore } from "@/entities/user";
+import { RolesDict } from "@/shared/types";
 
-interface PostProps extends IPost {
+interface PostProps {
+  post: IPost;
   onClick: () => void;
 }
-const MAX_TEXT_LENGTH = 50; // Максимальное количество символов
+const MAX_TEXT_LENGTH = 50;
+const MAX_NAME_LENGTH = 30;
 
-export const Post: React.FC<PostProps> = ({
-  id,
-  img,
-  title,
-  date,
-  text,
-  onClick,
-}) => {
+export const Post: React.FC<PostProps> = ({ post, onClick }) => {
+  const { id, name, createdAt, text, imageId } = post;
+  const { role } = useAuthStore();
+
   return (
     <PostCard id={`${id}`} onClick={onClick}>
       <Image>
-        <img src={img} alt="post_img" />
+        <img src={`${baseUrl}/media/get/${imageId}`} alt="post_img" />
       </Image>
 
-      <PostTitle>{title}</PostTitle>
+      <PostName>
+        {name.length > MAX_NAME_LENGTH
+          ? `${name.slice(0, MAX_NAME_LENGTH)}...`
+          : name}
+      </PostName>
 
       <Flex $direction={"row"} $align={"center"} $gap={20}>
-        <Date>
+        <PublicDate>
           <CalendarSvg />
-          {date}
-        </Date>
+          {createdAt && formatterDate(createdAt)}
+        </PublicDate>
 
-        <EditButton>
-          <EditSvg />
-        </EditButton>
+        {role === RolesDict.ADMIN && (
+          <>
+            <ActionButton onClick={(e) => e.stopPropagation()}>
+              <EditSvg />
+            </ActionButton>
+
+            <ActionButton onClick={(e) => e.stopPropagation()}>
+              <DeleteSvg />
+            </ActionButton>
+          </>
+        )}
       </Flex>
 
       <Text>

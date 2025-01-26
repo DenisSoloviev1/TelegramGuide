@@ -6,7 +6,7 @@ export const PageTitle = styled.h1`
   font-weight: 500;
 `;
 
-export const Image = styled.div`
+export const ImageBackground = styled.div`
   max-width: 500px;
   max-height: 500px;
   display: flex;
@@ -18,7 +18,7 @@ export const Image = styled.div`
     width: 100%;
     height: 100%;
   }
-    
+
   @media screen and (max-width: 900px) {
     margin-right: 0;
     margin-bottom: 50px;

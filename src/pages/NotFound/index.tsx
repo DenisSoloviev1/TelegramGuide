@@ -2,7 +2,7 @@ import { Flex, NotFoundSvg } from "@/shared/ui";
 import { NavLink } from "react-router-dom";
 import React from "react";
 import { Routes } from "@/shared/constants";
-import { Image } from "../style";
+import { ImageBackground } from "../style";
 import { isMobile } from "@/shared/lib";
 
 export const NotFound: React.FC = () => {
@@ -12,9 +12,9 @@ export const NotFound: React.FC = () => {
       $direction={isMobile ? "column" : "row"}
       $align={"center"}
     >
-      <Image>
+      <ImageBackground>
         <NotFoundSvg />
-      </Image>
+      </ImageBackground>
 
       <Flex $gap={10}>
         <h2 style={{fontSize: "30px"}}>Cтраница не найдена</h2>

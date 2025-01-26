@@ -1,14 +1,14 @@
 import axios, { AxiosRequestConfig, Method } from "axios";
 import { baseUrl } from ".";
 
-/**
- * Универсальный интерфейс ответа от сервера.
- */
-export interface IResponse<T> {
-  data: T; // Тип данных, возвращаемых сервером.
-  success: boolean; // Указывает на успешность запроса.
-  error?: string; // Сообщение об ошибке, если запрос неуспешен.
-}
+// /**
+//  * Универсальный интерфейс ответа от сервера.
+//  */
+// export interface IResponse<T> {
+//   data: T; // Тип данных, возвращаемых сервером.
+//   success: boolean; // Указывает на успешность запроса.
+//   error?: string; // Сообщение об ошибке, если запрос неуспешен.
+// }
 
 /**
  * Универсальная функция для выполнения HTTP-запросов.
@@ -23,32 +23,34 @@ export const apiRequest = async <T>(
   endpoint: string,
   data?: object,
   params?: object
-): Promise<IResponse<T>> => {
+): Promise<T> => {
   try {
     // const token = localStorage.getItem("authToken");
-    // if (!token) {
-    //   throw new Error("Токен авторизации отсутствует");
-    // }
+    const token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzM3OTAxMzc0LCJleHAiOjE3Mzc5ODc3NzR9.y5h4Ruj7bn_0rvSPlAxkgm7DtPeoEgJHW0xJhhdRyaU"; // Токен
+
+    if (!token) {
+      throw new Error("Токен авторизации отсутствует");
+    }
 
     const config: AxiosRequestConfig = {
       method,
       url: `${baseUrl}${endpoint}`, // Полный URL
-      data,
-      params,
-      // headers: {
-      //   Authorization: `Bearer ${token}`,
-      //   "Content-Type": "application/json",
-      // },
+      data, // Тело запроса
+      params, // Если метод GET - параметры в URL
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
     };
 
     const response = await axios(config);
-
-    return response.data;
+    return response.data; // возвращаем данные из ответа
   } catch (error: any) {
     console.error(
       `Ошибка при запросе ${method} ${endpoint}:`,
-      error.response || error.message
+      error.response?.data || error.message
     );
-    throw error;
+    throw error; // выбрасываем ошибку, чтобы ее можно было обработать выше
   }
 };

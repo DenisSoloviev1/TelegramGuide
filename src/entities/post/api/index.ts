@@ -3,75 +3,74 @@ import { IPost } from "../model";
 
 /**
  * Создание поста.
- * @param img - ссылка на фотогрфию.
- * @param date - дата создания.
- * @param text - содержание.
+ * @param data - параметры поста (изображение, заголовок, текст).
  * @returns Promise с результатом операции.
  */
-export const addPosts = async (
-  img: IPost["img"],
-  date: IPost["date"],
-  text: IPost["text"]
-): Promise<IPost[]> => {
-  const response = await apiRequest<IPost[]>("POST", `/api/posts`, {
-    img,
-    date,
-    text,
-  });
-
-  if (!response.success) {
-    throw new Error(
-      response.error || "Ошибка при cоздании поста."
+export const addPost = async (data: IPost): Promise<IPost> => {
+  try {
+    const response = await apiRequest<{ post: IPost }>(
+      "POST",
+      "/posts/create",
+      data
     );
-  }
 
-  return response.data;
+    return response.post;
+  } catch (error) {
+    console.error("Ошибка при создании поста:", error);
+    throw new Error("Ошибка при создании поста.");
+  }
 };
 
 /**
  * Получение постов.
+ * @param take - количество полученных постов.
+ * @param skip - пропущенные при получении.
  * @returns Promise с результатом операции.
  */
-export const getPosts = async (): Promise<IPost[]> => {
-  const response = await apiRequest<IPost[]>("GET", `/api/posts`);
-
-  if (!response.success) {
-    throw new Error(
-      response.error || "Ошибка при получении постов."
+export const getPosts = async (
+  take: number,
+  skip: number
+): Promise<IPost[]> => {
+  try {
+    const response = await apiRequest<{ list: IPost[] }>(
+      "GET",
+      "/posts/list",
+      undefined,
+      { take, skip }
     );
+
+    return response.list;
+  } catch (error) {
+    console.error("Ошибка при получении постов:", error);
+    throw new Error("Ошибка при получении постов.");
   }
-  
-  return response.data;
 };
 
 /**
  * Редактирование поста.
  * @param id - id редактируемого поста.
- * @param img - ссылка на фотогрфию.
- * @param date - дата создания.
- * @param text - содержание.
+ * @param data - параметры редактируемого поста (изображение, заголовок, текст).
  * @returns Promise с результатом операции.
  */
-export const editPosts = async (
+export const updatePosts = async (
   id: IPost["id"],
-  img: IPost["img"],
-  date: IPost["date"],
-  text: IPost["text"]
-): Promise<IPost[]> => {
-  const response = await apiRequest<IPost[]>("POST", `/api/posts`, {
-    id,
-    img,
-    date,
-    text,
-  });
-
-  if (!response.success) {
-    throw new Error(
-      response.error || "Ошибка при редактировании поста."
+  data: IPost
+): Promise<IPost> => {
+  try {
+    const response = await apiRequest<{ post: IPost }>(
+      "POST",
+      "/posts/update",
+      data,
+      {
+        id,
+      }
     );
-  }
 
-  return response.data;
+    return response.post;
+  } catch (error) {
+    console.error("Ошибка при редактировании поста:", error);
+    throw new Error("Ошибка при редактировании поста.");
+  }
 };
 
 /**
@@ -79,16 +78,18 @@ export const editPosts = async (
  * @param id - id удаляемого поста.
  * @returns Promise с результатом операции.
  */
-export const deletePosts = async (id: IPost["id"]): Promise<IPost[]> => {
-  const response = await apiRequest<IPost[]>("POST", `/api/posts`, {
-    id,
-  });
-
-  if (!response.success) {
-    throw new Error(
-      response.error || "Ошибка при удалении поста."
+export const deletePosts = async (id: IPost["id"]): Promise<boolean> => {
+  try {
+    const response = await apiRequest<boolean>(
+      "POST",
+      "/posts/delete",
+      undefined,
+      { id }
     );
-  }
 
-  return response.data;
+    return response;
+  } catch (error) {
+    console.error("Ошибка при удалении поста:", error);
+    throw new Error("Ошибка при удалении поста.");
+  }
 };

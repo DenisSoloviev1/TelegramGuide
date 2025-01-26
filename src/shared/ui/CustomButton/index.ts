@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Button = styled.button`
+export const CustomButton = styled.button`
   display: flex;
   justify-content: space-between;
   gap: 10px;

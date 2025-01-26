@@ -16,33 +16,17 @@ export const Modal = styled.div`
 export const ModalContent = styled.div<{
   $width?: string;
   $height?: string;
-  $position?: string[];
 }>`
-  width: ${(props) => (props.$width ? props.$width : `450px`)};
-  height: ${(props) => (props.$height ? props.$height : `370px`)};
+  width: ${(props) => (props.$width ? props.$width : `auto`)};
+  height: ${(props) => (props.$height ? props.$height : `auto`)};
+  max-height: 90%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 10px;
   border-radius: 16px;
   background-color: var(--color-background);
   padding: 20px;
   border: 1px solid var(--color-font-disable);
   box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.3);
-  position: ${(props) => (props.$position ? `absolute` : `relative`)};
   z-index: 4;
-
-  ${(props) => {
-    const [top, left, bottom, right] = props.$position || [];
-    return `
-      ${top ? `top: ${top};` : ""}
-      ${left ? `left: ${left};` : ""}
-      ${bottom ? `bottom: ${bottom};` : ""}
-      ${right ? `right: ${right};` : ""}
-    `;
-  }}
-
-  @media screen and (max-width: 551px) {
-  width: ${(props) => (props.$width ? props.$width : `90%`)};
-  }
+  overflow-y: scroll;
 `;

@@ -6,7 +6,6 @@ export const ChannelCard = styled.div`
   border-radius: 16px;
   padding: 20px;
   gap: 20px;
-  margin: 50px;
   background-color: var(--color-background-container);
   border: 1px solid #cccccc;
   transition: all 0.3s ease-in-out;
