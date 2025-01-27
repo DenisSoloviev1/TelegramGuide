@@ -1,15 +1,19 @@
 import React from "react";
-import { PostCard, Image, PostName, PublicDate, Text } from "./style";
+import { PostCard, Image, PostName, PublicDate } from "./style";
 import { IPost } from "../model";
 import { CalendarSvg, Flex } from "@/shared/ui";
 import { baseUrl } from "@/shared/config";
 import { formatterDate } from "@/shared/lib";
 import { useNavigate } from "react-router-dom";
 
-const MAX_TEXT_LENGTH = 50;
-const MAX_NAME_LENGTH = 30;
+const MAX_NAME_LENGTH = 50;
 
-export const Post: React.FC<IPost> = ({id, name, createdAt, text, imageId}) => {
+export const Post: React.FC<IPost> = ({
+  id,
+  name,
+  createdAt,
+  imageId,
+}) => {
   const navigate = useNavigate();
 
   return (
@@ -30,12 +34,6 @@ export const Post: React.FC<IPost> = ({id, name, createdAt, text, imageId}) => {
           {createdAt && formatterDate(createdAt)}
         </PublicDate>
       </Flex>
-
-      <Text>
-        {text.length > MAX_TEXT_LENGTH
-          ? `${text.slice(0, MAX_TEXT_LENGTH)}...`
-          : text}
-      </Text>
     </PostCard>
   );
 };

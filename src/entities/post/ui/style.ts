@@ -71,9 +71,3 @@ export const PublicDate = styled.span`
     fill: var(--color-font-disable);
   }
 `;
-
-export const Text = styled.p<{ $fontSize?: number }>`
-  margin: 10px 0;
-  padding-left: 5px;
-  font-size: ${(props) => `${props.$fontSize}px`};
-`;

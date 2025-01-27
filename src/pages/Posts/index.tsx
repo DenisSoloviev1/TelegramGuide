@@ -51,7 +51,6 @@ export const Posts: React.FC = () => {
                   key={post.id}
                   id={post.id}
                   name={post.name}
-                  text={post.text}
                   createdAt={post.createdAt}
                   imageId={post.imageId}
                 />
