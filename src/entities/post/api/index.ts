@@ -47,23 +47,41 @@ export const getPosts = async (
 };
 
 /**
+ * Получение подробной информации о посте.
+ * @param id - id нужного поста.
+ * @returns Promise с результатом операции.
+ */
+export const getPostById = async (id: IPost["id"]): Promise<IPost> => {
+  try {
+    const response = await apiRequest<{ post: IPost }>(
+      "GET",
+      "/posts/get",
+      undefined,
+      { id }
+    );
+
+    return response.post;
+  } catch (error) {
+    console.error("Ошибка при получении информации о посте:", error);
+    throw new Error("Ошибка при получении информации о посте.");
+  }
+};
+
+/**
  * Редактирование поста.
- * @param id - id редактируемого поста.
  * @param data - параметры редактируемого поста (изображение, заголовок, текст).
+ * @param id - id редактируемого поста.
  * @returns Promise с результатом операции.
  */
 export const updatePosts = async (
-  id: IPost["id"],
-  data: IPost
+  data: IPost,
+  id: IPost["id"]
 ): Promise<IPost> => {
   try {
     const response = await apiRequest<{ post: IPost }>(
       "POST",
-      "/posts/update",
-      data,
-      {
-        id,
-      }
+      `/posts/update?id=${id}`,
+      data
     );
 
     return response.post;

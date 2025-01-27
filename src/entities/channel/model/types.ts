@@ -1,5 +1,5 @@
 export interface IChannel {
-  id: number;
+  id: string;
   img: string;
   name: string;
   description: string;

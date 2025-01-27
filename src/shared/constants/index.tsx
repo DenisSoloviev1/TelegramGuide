@@ -2,11 +2,12 @@ export type NavItem = {
   [key: string]: string;
 };
 
-export enum Routes {
+export enum Path {
   NOTFOUND = "*",
   HOME = "/",
   AUTH = "/auth",
   POSTS = "/posts",
+  POSTDETAILS ="/posts/:postId",
   COLLECTIONS = "/collections",
   NOMINATIONS = "/nominations",
 }

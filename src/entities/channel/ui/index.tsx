@@ -19,7 +19,7 @@ export const Channel: React.FC<IChannel> = ({
   followers,
 }) => {
   return (
-    <ChannelCard id={`${id}`}>
+    <ChannelCard id={id}>
       <Avatar src={img} />
 
       <Flex $gap={5}>

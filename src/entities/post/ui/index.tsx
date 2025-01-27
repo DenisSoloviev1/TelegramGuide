@@ -1,32 +1,19 @@
 import React from "react";
-import {
-  PostCard,
-  Image,
-  PostName,
-  PublicDate,
-  Text,
-  ActionButton,
-} from "./style";
+import { PostCard, Image, PostName, PublicDate, Text } from "./style";
 import { IPost } from "../model";
-import { CalendarSvg, DeleteSvg, EditSvg, Flex } from "@/shared/ui";
+import { CalendarSvg, Flex } from "@/shared/ui";
 import { baseUrl } from "@/shared/config";
 import { formatterDate } from "@/shared/lib";
-import { useAuthStore } from "@/entities/user";
-import { RolesDict } from "@/shared/types";
+import { useNavigate } from "react-router-dom";
 
-interface PostProps {
-  post: IPost;
-  onClick: () => void;
-}
 const MAX_TEXT_LENGTH = 50;
 const MAX_NAME_LENGTH = 30;
 
-export const Post: React.FC<PostProps> = ({ post, onClick }) => {
-  const { id, name, createdAt, text, imageId } = post;
-  const { role } = useAuthStore();
+export const Post: React.FC<IPost> = ({id, name, createdAt, text, imageId}) => {
+  const navigate = useNavigate();
 
   return (
-    <PostCard id={`${id}`} onClick={onClick}>
+    <PostCard id={`${id}`} onClick={() => navigate(`/posts/${id}`)}>
       <Image>
         <img src={`${baseUrl}/media/get/${imageId}`} alt="post_img" />
       </Image>
@@ -42,18 +29,6 @@ export const Post: React.FC<PostProps> = ({ post, onClick }) => {
           <CalendarSvg />
           {createdAt && formatterDate(createdAt)}
         </PublicDate>
-
-        {role === RolesDict.ADMIN && (
-          <>
-            <ActionButton onClick={(e) => e.stopPropagation()}>
-              <EditSvg />
-            </ActionButton>
-
-            <ActionButton onClick={(e) => e.stopPropagation()}>
-              <DeleteSvg />
-            </ActionButton>
-          </>
-        )}
       </Flex>
 
       <Text>

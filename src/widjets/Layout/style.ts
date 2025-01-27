@@ -38,4 +38,8 @@ export const Wrapper = styled.div`
   min-width: 320px;
   max-width: 1060px;
   padding: 10px 30px;
+
+  @media screen and (max-width: 500px) {
+    padding: 10px 15px;
+  }
 `;

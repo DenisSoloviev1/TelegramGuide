@@ -1,15 +1,6 @@
 import axios, { AxiosRequestConfig, Method } from "axios";
 import { baseUrl } from ".";
 
-// /**
-//  * Универсальный интерфейс ответа от сервера.
-//  */
-// export interface IResponse<T> {
-//   data: T; // Тип данных, возвращаемых сервером.
-//   success: boolean; // Указывает на успешность запроса.
-//   error?: string; // Сообщение об ошибке, если запрос неуспешен.
-// }
-
 /**
  * Универсальная функция для выполнения HTTP-запросов.
  * @param method - HTTP-метод (GET, POST, PUT, DELETE).
@@ -27,8 +18,7 @@ export const apiRequest = async <T>(
   try {
     // const token = localStorage.getItem("authToken");
     const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzM3OTAxMzc0LCJleHAiOjE3Mzc5ODc3NzR9.y5h4Ruj7bn_0rvSPlAxkgm7DtPeoEgJHW0xJhhdRyaU"; // Токен
-
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzM4MDA1MDYyLCJleHAiOjE3MzgwOTE0NjJ9.5gh6cZzoAbDbtypPaMo15kSsdUu9U5HwQOv87FVeM_0";
     if (!token) {
       throw new Error("Токен авторизации отсутствует");
     }
