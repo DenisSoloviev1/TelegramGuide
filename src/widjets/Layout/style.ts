@@ -5,9 +5,6 @@ export const Header = styled.header`
   position: sticky;
   top: 0;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background-color: var(--color-background-container);
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
   z-index: 2;

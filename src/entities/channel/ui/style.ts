@@ -5,10 +5,10 @@ export const ChannelCard = styled.div`
   align-items: center;
   border-radius: 16px;
   padding: 20px;
-  gap: 20px;
   background-color: var(--color-background-container);
   border: 1px solid #cccccc;
   transition: all 0.3s ease-in-out;
+  gap:10px;
 
   &:hover {
     border: 1px solid var(--color-background-container);

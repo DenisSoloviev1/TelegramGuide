@@ -1,20 +1,8 @@
-export type NavItem = {
-  [key: string]: string;
-};
-
 export enum Path {
-  NOTFOUND = "*",
+  NOT_FOUND = "*",
   HOME = "/",
   AUTH = "/auth",
   POSTS = "/posts",
-  POSTDETAILS ="/posts/:postId",
-  COLLECTIONS = "/collections",
-  NOMINATIONS = "/nominations",
+  POST_DETAILS = "/posts/:postId",
+  CATEGORY_DETAILS = "/category/:categoryId",
 }
-
-export const NavItem: NavItem = {
-  "/": "главная",
-  "/posts": "публикации",
-  "/collections": "подборки",
-  "/nominations": "номинации",
-};

@@ -2,22 +2,27 @@ import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ModalWindow, Flex, Input, CustomButton } from "@/shared/ui";
 import toast from "react-hot-toast";
-import { addPost, deletePost, IPost, updatePost } from "@/entities/post";
+import {
+  addCategory,
+  deleteCategory,
+  ICategory,
+  updateCategory,
+} from "@/entities/category";
 import { isMobile } from "@/shared/lib";
 import { PageText } from "@/pages/style";
 
-interface PostModalProps {
+interface CategoryModalProps {
   mode: "add" | "update" | "delete";
   show: boolean;
   onClose: () => void;
-  postData?: IPost; // Для редактирования и удаления
+  сategoryData?: ICategory; // Для редактирования и удаления
 }
 
-const PostModal: React.FC<PostModalProps> = ({
+const CategoryModal: React.FC<CategoryModalProps> = ({
   mode,
   show,
   onClose,
-  postData,
+  сategoryData,
 }) => {
   const {
     register,
@@ -25,8 +30,8 @@ const PostModal: React.FC<PostModalProps> = ({
     setValue,
     reset,
     formState: { errors },
-  } = useForm<IPost>({
-    defaultValues: postData || {},
+  } = useForm<ICategory>({
+    defaultValues: сategoryData || {},
   });
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,14 +48,14 @@ const PostModal: React.FC<PostModalProps> = ({
     }
   };
 
-  const handleFormSubmit: SubmitHandler<IPost> = async (data) => {
+  const handleFormSubmit: SubmitHandler<ICategory> = async (data) => {
     try {
       if (mode === "add") {
-        await addPost(data);
-        toast.success("Пост создан");
+        await addCategory(data);
+        toast.success("Категория создана");
       } else {
-        await updatePost(data, postData?.id);
-        toast.success("Пост отредактирован");
+        await updateCategory(data, сategoryData?.id);
+        toast.success("Категория отредактирован");
       }
       onClose();
       reset();
@@ -62,35 +67,32 @@ const PostModal: React.FC<PostModalProps> = ({
 
   const handleDelete = async () => {
     try {
-      await deletePost(postData?.id);
-      toast.success("Пост удален");
+      await deleteCategory(сategoryData?.id);
+      toast.success("Категория удалена");
       onClose();
     } catch (error) {
       console.error(error);
-      toast.error("Ошибка при удалении поста");
+      toast.error("Ошибка при удалении категории");
     }
   };
 
   return (
-    <ModalWindow show={show} onClick={onClose} width={isMobile ? "90%" : "50%"}>
+    <ModalWindow
+      show={show}
+      onClick={onClose}
+      width={isMobile ? "90%" : "400px"}
+    >
       {mode === "add" || mode === "update" ? (
         <form onSubmit={handleSubmit(handleFormSubmit)}>
           <Flex $direction="column" $align={"center"}>
             <Input
-              label="Заголовок"
-              {...register("name", { required: "Заголовок обязателен" })}
+              label="Название"
+              {...register("name", { required: "Название обязателено" })}
               error={errors.name?.message}
-            />
-            <Input
-              label="Текст"
-              type="textarea"
-              {...register("text", { required: "Текст обязателен" })}
-              error={errors.text?.message}
             />
             <Input
               label="Изображение"
               type="file"
-              {...register("base64", { required: "Изображение обязателено" })}
               onChange={handleFileChange}
               error={errors.base64?.message}
             />
@@ -103,7 +105,7 @@ const PostModal: React.FC<PostModalProps> = ({
       ) : (
         <Flex $align="center" $gap={20}>
           <PageText $fontSize={25}>
-            Вы уверены, что хотите удалить этот пост?
+            Вы уверены, что хотите удалить эту категорию?
           </PageText>
 
           <Flex $direction="row" $justify="center" $gap={30}>
@@ -121,4 +123,4 @@ const PostModal: React.FC<PostModalProps> = ({
   );
 };
 
-export default PostModal;
+export default CategoryModal;

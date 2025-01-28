@@ -1,9 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useAuthStore } from "@/entities/user";
-import { NavItems, INav } from "./constants";
 import styled from "styled-components";
 import "@/shared/variables.css";
+import { LogOutSvg } from "../Icon";
+import { CustomButton } from "../CustomButton";
+import { RolesDict } from "@/shared/types";
+import { Path } from "@/shared/constants";
 
 export const Nav = styled.nav`
   display: flex;
@@ -31,20 +34,25 @@ export const NavBar: React.FC = () => {
 
   return (
     <Nav>
-      {NavItems.filter(
-        (link: INav) =>
-          Array.isArray(link.allowedRoles) && link.allowedRoles.includes(role)
-      ).map((link: INav) => (
-        <NavLink
-          key={link.id}
-          data-id={`${link.id}`}
-          to={link.path}
-          className={({ isActive }) => (isActive ? "active" : "")}
-          onClick={link.label === "выйти" ? resetAuth : undefined}
-        >
-          {link.label}
-        </NavLink>
-      ))}
+      <NavLink
+        to={Path.HOME}
+        className={({ isActive }) => (isActive ? "active" : "")}
+      >
+        главная
+      </NavLink>
+
+      <NavLink
+        to={Path.POSTS}
+        className={({ isActive }) => (isActive ? "active" : "")}
+      >
+        посты
+      </NavLink>
+
+      {role === RolesDict.ADMIN && (
+        <CustomButton $mode={"svg"} onClick={() => resetAuth()}>
+          <LogOutSvg />
+        </CustomButton>
+      )}
     </Nav>
   );
 };

@@ -15,7 +15,7 @@ import { baseUrl } from "@/shared/config";
 import { PostContainer, PublicDate } from "@/entities/post/ui/style";
 import { formatterDate } from "@/shared/lib";
 import { useAuthStore } from "@/entities/user";
-import { PageImage, PageText, PageTitle } from "../style";
+import { PageImage, PageText, SectionTitle } from "../style";
 import { RolesDict } from "@/shared/types";
 import { useGetPostById } from "@/entities/post";
 import PostModal from "@/widjets/PostModal";
@@ -58,14 +58,14 @@ export const PostDetails: React.FC = () => {
             {role === RolesDict.ADMIN && (
               <>
                 <CustomButton
-                  $style="svg"
+                  $mode="svg"
                   onClick={() => setShowUpdateModal(true)}
                 >
                   <UpdateSvg />
                 </CustomButton>
 
                 <CustomButton
-                  $style="svg"
+                  $mode="svg"
                   onClick={() => setShowDeleteModal(true)}
                 >
                   <DeleteSvg />
@@ -74,7 +74,7 @@ export const PostDetails: React.FC = () => {
             )}
           </Flex>
 
-          <PageTitle>{post?.name}</PageTitle>
+          <SectionTitle>{post?.name}</SectionTitle>
 
           <img src={`${baseUrl}/media/get/${post?.imageId}`} alt="post_img" />
 

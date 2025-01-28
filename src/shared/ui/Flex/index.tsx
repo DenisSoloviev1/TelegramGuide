@@ -7,6 +7,7 @@ export const Flex = styled.div<{
   $align?: string;
   $direction?: string;
   $gap?: number;
+  $wrap?: boolean;
 }>`
   width: ${(props) => props.$width ?? "100%"};
   height: ${(props) => props.$height ?? ""};
@@ -15,4 +16,5 @@ export const Flex = styled.div<{
   justify-content: ${(props) => props.$justify ?? "flex-start"};
   align-items: ${(props) => props.$align ?? "start"};
   gap: ${(props) => (props.$gap ? `${props.$gap}px` : "initial")};
+  flex-wrap: ${(props) => (props.$wrap ? "wrap" : "nowrap")};
 `;

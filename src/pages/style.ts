@@ -2,8 +2,20 @@ import styled from "styled-components";
 
 export const PageTitle = styled.h1`
   margin: 20px 0;
-  font-size: 30px;
+  font-size: 28px;
   font-weight: 500;
+`;
+
+export const SectionTitle = styled.h2`
+  margin: 20px 0 15px;
+  font-size: 24px;
+  font-weight: 500;
+`;
+
+export const PageText = styled.p<{ $fontSize?: number }>`
+  margin: 10px 0;
+  padding-left: 5px;
+  font-size: ${(props) => `${props.$fontSize}px`};
 `;
 
 export const PageImage = styled.div`
@@ -25,8 +37,4 @@ export const PageImage = styled.div`
   }
 `;
 
-export const PageText = styled.p<{ $fontSize?: number }>`
-  margin: 10px 0;
-  padding-left: 5px;
-  font-size: ${(props) => `${props.$fontSize}px`};
-`;
+

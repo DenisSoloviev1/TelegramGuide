@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-export const CustomButton = styled.button<{ $style?: "normal" | "svg" }>`
+export const CustomButton = styled.button<{ $mode?: "normal" | "svg" }>`
   ${(props) =>
-    (props.$style ?? "normal") === "normal" &&
+    (props.$mode ?? "normal") === "normal" &&
     `display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,7 +19,7 @@ export const CustomButton = styled.button<{ $style?: "normal" | "svg" }>`
   }`}
 
   ${(props) =>
-    (props.$style ?? "normal") === "svg" &&
+    (props.$mode ?? "normal") === "svg" &&
     `width: 30px;
   height: 30px;
   transition: transform 0.3s ease-in-out;

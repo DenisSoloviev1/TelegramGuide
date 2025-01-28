@@ -18,7 +18,7 @@ export const apiRequest = async <T>(
   try {
     // const token = localStorage.getItem("authToken");
     const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzM4MDA1MDYyLCJleHAiOjE3MzgwOTE0NjJ9.5gh6cZzoAbDbtypPaMo15kSsdUu9U5HwQOv87FVeM_0";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzM4MDk4NjAxLCJleHAiOjE3MzgxODUwMDF9.7tZfDGi-MGTvHS_IhDrlAWzoehnr-Cv3csn6AMXJT3g";
     if (!token) {
       throw new Error("Токен авторизации отсутствует");
     }

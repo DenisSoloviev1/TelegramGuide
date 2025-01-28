@@ -73,7 +73,7 @@ export const getPostById = async (id: IPost["id"]): Promise<IPost> => {
  * @param id - id редактируемого поста.
  * @returns Promise с результатом операции.
  */
-export const updatePosts = async (
+export const updatePost = async (
   data: IPost,
   id: IPost["id"]
 ): Promise<IPost> => {
@@ -96,7 +96,7 @@ export const updatePosts = async (
  * @param id - id удаляемого поста.
  * @returns Promise с результатом операции.
  */
-export const deletePosts = async (id: IPost["id"]): Promise<boolean> => {
+export const deletePost = async (id: IPost["id"]): Promise<boolean> => {
   try {
     const response = await apiRequest<boolean>(
       "POST",
