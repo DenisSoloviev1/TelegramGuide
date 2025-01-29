@@ -55,7 +55,7 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
         toast.success("Категория создана");
       } else {
         await updateCategory(data, сategoryData?.id);
-        toast.success("Категория отредактирован");
+        toast.success("Категория отредактированна");
       }
       onClose();
       reset();

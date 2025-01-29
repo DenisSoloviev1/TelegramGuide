@@ -115,6 +115,7 @@ const ChannelModal: React.FC<ChannelModalProps> = ({
               {...register("keywords", {
                 required: "Ключевые слова обязательны",
               })}
+              placeholder="через пробел без запятых"
               error={errors.keywords?.message}
             />
 

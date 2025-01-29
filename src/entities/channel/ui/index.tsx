@@ -1,20 +1,44 @@
 import React from "react";
-import { ChannelCard, Name, UserName, Followers, KeyWords } from "./style";
+import {
+  ChannelCard,
+  Name,
+  UserName,
+  Followers,
+  KeyWords,
+  ChannelAction,
+} from "./style";
 import { IChannel } from "../model";
-import { Flex, FollowerSvg } from "@/shared/ui";
+import {
+  CustomButton,
+  DeleteSvg,
+  Flex,
+  FollowerSvg,
+  UpdateSvg,
+} from "@/shared/ui";
 import { baseUrl } from "@/shared/config";
+import { RolesDict } from "@/shared/types";
+import { useAuthStore } from "@/entities/user";
 
 const MAX_DESCRIPTION_LENGTH = 50;
 
-export const Channel: React.FC<IChannel> = ({
+interface ChannelProps extends IChannel {
+  onEditClick: () => void;
+  onDeleteClick: () => void;
+}
+
+export const Channel: React.FC<ChannelProps> = ({
   id,
   name,
   userName,
-  description = "",
+  description = "", // Дефолтное значение
   imageId,
   keywords,
   membersCount,
+  onEditClick,
+  onDeleteClick,
 }) => {
+  const { role } = useAuthStore();
+
   return (
     <ChannelCard
       id={`${id}`}
@@ -25,7 +49,7 @@ export const Channel: React.FC<IChannel> = ({
       <Flex $gap={5}>
         <Name>{name}</Name>
 
-        <Flex $direction={"row"} $align={"center"} $gap={15}>
+        <Flex $direction="row" $align="center" $gap={15}>
           <UserName>@{userName}</UserName>
 
           <Followers>
@@ -35,8 +59,8 @@ export const Channel: React.FC<IChannel> = ({
         </Flex>
 
         <p>
-          {description?.length > MAX_DESCRIPTION_LENGTH
-            ? `${description?.slice(0, MAX_DESCRIPTION_LENGTH)}...`
+          {description.length > MAX_DESCRIPTION_LENGTH
+            ? `${description.slice(0, MAX_DESCRIPTION_LENGTH)}...`
             : description}
         </p>
 
@@ -46,6 +70,30 @@ export const Channel: React.FC<IChannel> = ({
           ))}
         </KeyWords>
       </Flex>
+
+      {role === RolesDict.ADMIN && (
+        <ChannelAction>
+          <CustomButton
+            $mode="svg"
+            onClick={(e) => {
+              e.stopPropagation();
+              onEditClick();
+            }}
+          >
+            <UpdateSvg />
+          </CustomButton>
+
+          <CustomButton
+            $mode="svg"
+            onClick={(e) => {
+              e.stopPropagation();
+              onDeleteClick();
+            }}
+          >
+            <DeleteSvg />
+          </CustomButton>
+        </ChannelAction>
+      )}
     </ChannelCard>
   );
 };

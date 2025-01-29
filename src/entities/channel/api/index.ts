@@ -52,19 +52,19 @@ export const getChannels = async (
 
 /**
  * Редактирование ключевых слов в канале.
- * @param data - ключевые слова.
+ * @param keywords - ключевые слова.
  * @param id - id редактируемого канала.
  * @returns Promise с результатом операции.
  */
 export const updateKeywordsChannel = async (
-  data: IChannel["keywords"],
+  keywords: IChannel["keywords"],
   id: IChannel["id"]
 ): Promise<IChannel> => {
   try {
     const response = await apiRequest<{ channel: IChannel }>(
       "POST",
       `/channel/keywords/update?id=${id}`,
-      data
+      { keywords: keywords }
     );
 
     return response.channel;
@@ -101,12 +101,12 @@ export const deleteChannel = async (id: IChannel["id"]): Promise<boolean> => {
  */
 export const getStatisticsChannels = async (): Promise<IStatistics> => {
   try {
-    const response = await apiRequest<IStatistics>(
+    const response = await apiRequest<{ statistics: IStatistics }>(
       "GET",
       "/statistics/channels"
     );
 
-    return response;
+    return response.statistics;
   } catch (error) {
     console.error("Ошибка при получении статистики каналов:", error);
     throw new Error("Ошибка при получении статистики каналов.");

@@ -20,15 +20,11 @@ import { baseUrl } from "@/shared/config";
 import CategoryModal from "@/widjets/CategoryModal";
 import { CategoryContainer } from "@/entities/category/ui/style";
 import ChannelModal from "@/widjets/ChannelModal";
-import { Channel, useGetChannels } from "@/entities/channel";
+import { Channel, IChannel, useGetChannels } from "@/entities/channel";
 
 export const CategoryDetails: React.FC = () => {
   const navigate = useNavigate();
   const { role } = useAuthStore();
-  const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
-  const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
-  const [showAddChannelModal, setshowAddChannelModal] =
-    useState<boolean>(false);
 
   const { categoryId } = useParams<{ categoryId: string }>();
   const categoryIdNumber = categoryId ? Number(categoryId) : undefined;
@@ -42,6 +38,23 @@ export const CategoryDetails: React.FC = () => {
     isLoading: isLoadingChannels,
     isError: isErrorChannels,
   } = useGetChannels(category?.id);
+
+  // состояния открытия редактирования и удаления категории
+  const [showUpdateCategoryModal, setShowUpdateCategoryModal] =
+    useState<boolean>(false);
+  const [showDeleteCategoryModal, setShowDeleteCategoryModal] =
+    useState<boolean>(false);
+
+  // состояния открытия создания, редактирования и удаления канала
+  const [showAddChannelModal, setShowAddChannelModal] =
+    useState<boolean>(false);
+  const [showUpdateChannelModal, setShowUpdateChannelModal] =
+    useState<boolean>(false);
+  const [showDeleteChannelModal, setShowDeleteChannelModal] =
+    useState<boolean>(false);
+
+  // выбранный канал
+  const [selectedChannel, setSelectedChannel] = useState<IChannel>();
 
   return (
     <>
@@ -77,21 +90,21 @@ export const CategoryDetails: React.FC = () => {
               <>
                 <CustomButton
                   $mode="svg"
-                  onClick={() => setShowUpdateModal(true)}
+                  onClick={() => setShowUpdateCategoryModal(true)}
                 >
                   <UpdateSvg />
                 </CustomButton>
 
                 <CustomButton
                   $mode="svg"
-                  onClick={() => setShowDeleteModal(true)}
+                  onClick={() => setShowDeleteCategoryModal(true)}
                 >
                   <DeleteSvg />
                 </CustomButton>
 
                 <CustomButton
                   $mode="svg"
-                  onClick={() => setshowAddChannelModal(true)}
+                  onClick={() => setShowAddChannelModal(true)}
                 >
                   <PlusSvg />
                 </CustomButton>
@@ -121,14 +134,15 @@ export const CategoryDetails: React.FC = () => {
                 : channels.map((channel) => (
                     <Channel
                       key={channel.id}
-                      id={channel.id}
-                      name={channel.name}
-                      userName={channel.userName}
-                      description={channel.description}
-                      categoryId={channel.categoryId}
-                      imageId={channel.imageId}
-                      keywords={channel.keywords}
-                      membersCount={channel.membersCount}
+                      {...channel}
+                      onEditClick={() => {
+                        setSelectedChannel(channel);
+                        setShowUpdateChannelModal(true);
+                      }}
+                      onDeleteClick={() => {
+                        setSelectedChannel(channel);
+                        setShowDeleteChannelModal(true);
+                      }}
                     />
                   ))}
             </Grid>
@@ -136,25 +150,42 @@ export const CategoryDetails: React.FC = () => {
         </CategoryContainer>
       )}
 
+      {/* модалки редактирования и удаления категории */}
       <CategoryModal
         mode="update"
-        show={showUpdateModal}
-        onClose={() => setShowUpdateModal(false)}
+        show={showUpdateCategoryModal}
+        onClose={() => setShowUpdateCategoryModal(false)}
         сategoryData={category}
       />
 
       <CategoryModal
         mode="delete"
-        show={showDeleteModal}
-        onClose={() => setShowDeleteModal(false)}
+        show={showDeleteCategoryModal}
+        onClose={() => setShowDeleteCategoryModal(false)}
         сategoryData={category}
       />
 
+      {/* модалки создания, редактирования и удаления канала */}
       <ChannelModal
         mode="add"
         show={showAddChannelModal}
-        onClose={() => setshowAddChannelModal(false)}
+        onClose={() => setShowAddChannelModal(false)}
         categoryId={categoryIdNumber}
+      />
+
+      <ChannelModal
+        mode="update"
+        show={showUpdateChannelModal}
+        onClose={() => setShowUpdateChannelModal(false)}
+        channelData={selectedChannel}
+      />
+
+      <ChannelModal
+        mode="delete"
+        show={showDeleteChannelModal}
+        onClose={() => setShowDeleteChannelModal(false)}
+        categoryId={categoryIdNumber}
+        channelData={selectedChannel}
       />
     </>
   );

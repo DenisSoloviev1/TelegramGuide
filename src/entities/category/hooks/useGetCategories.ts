@@ -10,7 +10,7 @@ export const useGetCategories = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    const fetchPosts = async () => {
+    const fetchCategories = async () => {
       try {
         const response = await getCategories();
         setСategories(response);
@@ -24,7 +24,7 @@ export const useGetCategories = () => {
       }
     };
 
-    fetchPosts();
+    fetchCategories();
   }, []);
 
   return { categories, isLoading, isError };

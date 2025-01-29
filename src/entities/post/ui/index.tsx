@@ -8,30 +8,25 @@ import { useNavigate } from "react-router-dom";
 
 const MAX_NAME_LENGTH = 50;
 
-export const Post: React.FC<IPost> = ({
-  id,
-  name,
-  createdAt,
-  imageId,
-}) => {
+export const Post: React.FC<IPost> = (post) => {
   const navigate = useNavigate();
 
   return (
-    <PostCard id={`${id}`} onClick={() => navigate(`/posts/${id}`)}>
+    <PostCard id={`${post.id}`} onClick={() => navigate(`/posts/${post.id}`)}>
       <PostImage>
-        <img src={`${baseUrl}/media/get/${imageId}`} alt="post_img" />
+        <img src={`${baseUrl}/media/get/${post.imageId}`} alt="post_img" />
       </PostImage>
 
       <PostName>
-        {name.length > MAX_NAME_LENGTH
-          ? `${name.slice(0, MAX_NAME_LENGTH)}...`
-          : name}
+        {post.name.length > MAX_NAME_LENGTH
+          ? `${post.name.slice(0, MAX_NAME_LENGTH)}...`
+          : post.name}
       </PostName>
 
       <Flex $direction={"row"} $align={"center"} $gap={20}>
         <PublicDate>
           <CalendarSvg />
-          {createdAt && formatterDate(createdAt)}
+          {post.createdAt && formatterDate(post.createdAt)}
         </PublicDate>
       </Flex>
     </PostCard>

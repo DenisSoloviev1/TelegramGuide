@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PageImage, SectionTitle } from "../style";
+import { PageImage, SectionTitle, StatisticCard } from "../style";
 import { CustomButton, Flex, NoDataSvg } from "@/shared/ui";
 import { Toaster } from "react-hot-toast";
 import { useAuthStore } from "@/entities/user";
@@ -8,15 +8,61 @@ import { Category } from "@/entities/category";
 import { Skeleton } from "@mui/material";
 import { useGetCategories } from "@/entities/category/hooks";
 import CategoryModal from "@/widjets/CategoryModal";
+import { useGetStatisticsChannels } from "@/entities/channel";
 
 export const Home: React.FC = () => {
   const { role } = useAuthStore();
-  const { categories, isLoading, isError } = useGetCategories();
+  const {
+    categories,
+    isLoading: isLoadingCategories,
+    isError: isErrorCategories,
+  } = useGetCategories();
+  const {
+    statisticsChannels,
+    isLoading: isLoadingStatisticsChannels,
+    isError: isErrorStatisticsChannels,
+  } = useGetStatisticsChannels();
   const [showAddModal, setShowAddModal] = useState<boolean>(false);
 
   return (
     <>
       <Toaster />
+
+      <SectionTitle>Статистика по каналам</SectionTitle>
+
+      {!isErrorStatisticsChannels && (
+        <Flex $direction="row" $gap={20} $wrap style={{ marginBottom: "20px" }}>
+          {isLoadingStatisticsChannels ? (
+            Array.from({ length: 3 }).map((_, index) => (
+              <Skeleton
+                key={index}
+                animation="wave"
+                variant="rounded"
+                width={200}
+                height={72}
+                style={{ borderRadius: "6px" }}
+              />
+            ))
+          ) : (
+            <>
+              <StatisticCard>
+                + {statisticsChannels?.today}
+                <span>добавлено сегодня</span>
+              </StatisticCard>
+
+              <StatisticCard>
+                + {statisticsChannels?.yesterday}
+                <span>добавлено вчера</span>
+              </StatisticCard>
+
+              <StatisticCard>
+                {statisticsChannels?.allTime}
+                <span>всего</span>
+              </StatisticCard>
+            </>
+          )}
+        </Flex>
+      )}
 
       <Flex $direction={"row"} $align={"center"} $gap={20}>
         <SectionTitle>Категории каналов</SectionTitle>
@@ -28,7 +74,7 @@ export const Home: React.FC = () => {
         )}
       </Flex>
 
-      {isError ? (
+      {isErrorCategories ? (
         <Flex $align="center">
           <PageImage>
             <NoDataSvg />
@@ -41,7 +87,7 @@ export const Home: React.FC = () => {
           $wrap
           style={{ margin: "20px 0 40px" }}
         >
-          {isLoading
+          {isLoadingCategories
             ? Array.from({ length: 6 }).map((_, index) => (
                 <Skeleton
                   key={index}
@@ -53,12 +99,7 @@ export const Home: React.FC = () => {
                 />
               ))
             : categories?.map((category) => (
-                <Category
-                  key={category.id}
-                  id={category.id}
-                  name={category.name}
-                  imageId={category.imageId}
-                />
+                <Category key={category.id} {...category} />
               ))}
         </Flex>
       )}

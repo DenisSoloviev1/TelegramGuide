@@ -49,10 +49,7 @@ export const Posts: React.FC = () => {
             : posts?.map((post) => (
                 <Post
                   key={post.id}
-                  id={post.id}
-                  name={post.name}
-                  createdAt={post.createdAt}
-                  imageId={post.imageId}
+                  {...post}
                 />
               ))}
         </Grid>

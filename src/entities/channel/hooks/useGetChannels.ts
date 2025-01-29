@@ -10,7 +10,7 @@ export const useGetChannels = (channelId: IChannel["id"]) => {
 
   useEffect(() => {
     setIsLoading(true);
-    const fetchPostById = async () => {
+    const fetchGetChannels = async () => {
       try {
         const response = await getChannels(10, 0, channelId);
         setChannels(response);
@@ -27,7 +27,7 @@ export const useGetChannels = (channelId: IChannel["id"]) => {
       }
     };
 
-    fetchPostById();
+    fetchGetChannels();
   }, []);
 
   return { channels, isLoading, isError };

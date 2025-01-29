@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const ChannelCard = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   border-radius: 16px;
@@ -42,9 +43,21 @@ export const Followers = styled.div`
 
 export const KeyWords = styled.div`
   display: flex;
-  gap: 5px;
+  gap: 10px;
 
   span {
     color: var(--color-action);
   }
+`;
+
+export const ChannelAction = styled.div`
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  display: flex;
+  align-content: center;
+  gap: 10px;
+  backdrop-filter: blur(5px);
+  border-radius: 6px;
+  padding: 5px;
 `;

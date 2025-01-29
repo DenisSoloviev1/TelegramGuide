@@ -37,4 +37,20 @@ export const PageImage = styled.div`
   }
 `;
 
+export const StatisticCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: 1px solid var(--color-font-disable);
+  background-color: var(--color-background-container);
+  color: var(--color-action);
+  font-size: 24px;
+  font-weight: 600;
 
+  span {
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--color-font);
+  }
+`;

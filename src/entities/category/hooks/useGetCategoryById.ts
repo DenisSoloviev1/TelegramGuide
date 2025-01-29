@@ -10,7 +10,7 @@ export const useGetCategoryById = (categoryId: ICategory["id"]) => {
 
   useEffect(() => {
     setIsLoading(true);
-    const fetchPostById = async () => {
+    const fetchCategoryById = async () => {
       try {
         const response = await getCategoryById(categoryId);
         setCategory(response);
@@ -27,7 +27,7 @@ export const useGetCategoryById = (categoryId: ICategory["id"]) => {
       }
     };
 
-    fetchPostById();
+    fetchCategoryById();
   }, []);
 
   return { category, isLoading, isError };
