@@ -8,17 +8,20 @@ export const ChannelCard = styled.div`
   background-color: var(--color-background-container);
   border: 1px solid #cccccc;
   transition: all 0.3s ease-in-out;
-  gap:10px;
+  gap: 10px;
 
   &:hover {
     border: 1px solid var(--color-background-container);
     box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
   }
-`;
 
-export const Avatar = styled.img`
-  max-width: 100px;
-  border-radius: 100%;
+  img {
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    object-fit: cover;
+  }
 `;
 
 export const Name = styled.h3`
@@ -26,9 +29,7 @@ export const Name = styled.h3`
   font-weight: 500;
 `;
 
-export const Description = styled.p``;
-
-export const LinkChannel = styled.span`
+export const UserName = styled.span`
   color: var(--color-font-disable);
 `;
 
@@ -37,10 +38,13 @@ export const Followers = styled.div`
   align-items: center;
   gap: 2px;
   color: var(--color-font-disable);
+`;
 
-  svg {
-    width: 15px;
-    height: 15px;
-    fill: var(--color-font-disable);
+export const KeyWords = styled.div`
+  display: flex;
+  gap: 5px;
+
+  span {
+    color: var(--color-action);
   }
 `;

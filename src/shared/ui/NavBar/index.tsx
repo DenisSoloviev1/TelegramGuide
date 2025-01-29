@@ -15,6 +15,7 @@ export const Nav = styled.nav`
   font-size: 20px;
 
   a {
+    text-decoration: none;
     color: var(--color-font-disable);
     text-transform: uppercase;
     font-weight: 500;

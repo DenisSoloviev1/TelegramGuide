@@ -1,5 +1,5 @@
 import React from "react";
-import { PostCard, Image, PostName, PublicDate } from "./style";
+import { PostCard, PostImage, PostName, PublicDate } from "./style";
 import { IPost } from "../model";
 import { CalendarSvg, Flex } from "@/shared/ui";
 import { baseUrl } from "@/shared/config";
@@ -18,9 +18,9 @@ export const Post: React.FC<IPost> = ({
 
   return (
     <PostCard id={`${id}`} onClick={() => navigate(`/posts/${id}`)}>
-      <Image>
+      <PostImage>
         <img src={`${baseUrl}/media/get/${imageId}`} alt="post_img" />
-      </Image>
+      </PostImage>
 
       <PostName>
         {name.length > MAX_NAME_LENGTH

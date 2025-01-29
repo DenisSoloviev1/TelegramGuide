@@ -1,98 +1,71 @@
-export const ArrowRight = ({ size }: { size: number }) => (
+export const ArrowLeftSvg = () => (
   <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="30"
+    height="30"
     viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-    width={`${size}px`}
-    height={`${size}px`}
-    fill="#f4f4f4"
-  >
-    <g id="_15" data-name="15">
-      <path d="m9 19a1 1 0 0 1 -.71-1.71l5.3-5.29-5.3-5.29a1 1 0 0 1 1.42-1.42l6 6a1 1 0 0 1 0 1.41l-6 6a1 1 0 0 1 -.71.3z" />
-    </g>
-  </svg>
-);
-
-export const ArrowLeft = ({ size }: { size: number }) => (
-  <svg
-    viewBox="0 0 36 36"
-    xmlns="http://www.w3.org/2000/svg"
-    width={`${size}px`}
-    height={`${size}px`}
-    fill="#f4f4f4"
-  >
-    <path d="m25 34a1.992 1.992 0 0 1 -1.414-.586l-14-14a2 2 0 0 1 0-2.828l14-14a2 2 0 0 1 2.828 2.828l-12.586 12.586 12.586 12.586a2 2 0 0 1 -1.414 3.414z" />
-  </svg>
-);
-
-export const ArrowDown = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
     fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
   >
-    <path
-      d="M13.3332 5.90918L8.9426 10.2998C8.42408 10.8183 7.57559 10.8183 7.05708 10.2998L2.6665 5.90918"
-      stroke="#38424F"
-      strokeWidth="1.5"
-      strokeMiterlimit="10"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-export const ArrowUp = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="25"
-    height="24"
-    viewBox="0 0 25 24"
-    fill="none"
-  >
-    <path
-      d="M20.3812 15.1217L13.748 8.53585C12.9646 7.75807 11.6827 7.75807 10.8994 8.53585L4.26611 15.1217"
-      stroke="#80889D"
-      strokeWidth="1.5"
-      strokeMiterlimit="10"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
+    <line x1="19" y1="12" x2="5" y2="12" />
+    <polyline points="12 19 5 12 12 5" />
   </svg>
 );
 
 export const FollowerSvg = () => (
   <svg
-    version="1.1"
-    id="Capa_1"
     xmlns="http://www.w3.org/2000/svg"
-    x="0px"
-    y="0px"
-    viewBox="0 0 512 512"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="#adb5bd"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
   >
-    <g>
-      <g>
-        <path d="M299.287,255.5h-86.574c-85.147,0-154.418,69.272-154.418,154.418V512h395.41V409.918 C453.705,324.772,384.434,255.5,299.287,255.5z" />
-      </g>
-    </g>
-    <g>
-      <g>
-        <path d="M256,0c-65.843,0-119.409,53.567-119.409,119.41c0,65.842,53.566,119.409,119.409,119.409s119.409-53.567,119.409-119.41 C375.409,53.567,321.843,0,256,0z" />
-      </g>
-    </g>
+    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+    <circle cx="12" cy="7" r="4" />
+  </svg>
+);
+
+export const PlusSvg = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="#2cc069"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="12" cy="12" r="10" />
+    <line x1="12" y1="8" x2="12" y2="16" />
+    <line x1="8" y1="12" x2="16" y2="12" />
   </svg>
 );
 
 export const CalendarSvg = () => (
   <svg
-    id="Layer_1"
-    enableBackground="new 0 0 32 32"
-    viewBox="0 0 32 32"
     xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="#adb5bd"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
   >
-    <path d="m25.03 11.25v-2.69c0-.28-.22-.5-.5-.5h-1.55v-1.57c0-.28-.22-.5-.5-.5s-.5.22-.5.5v1.57h-11.59v-1.7c0-.28-.22-.5-.5-.5s-.5.22-.5.5v1.7h-1.95c-.28 0-.5.22-.5.5v2.69c0 .27.22.49.49.49h17.11c.27-.01.49-.22.49-.49z" />
-    <path d="m6.94 13.2v12.04c0 .5.41.91.91.91h16.26c.5 0 .91-.41.91-.91v-12.04c0-.23-.18-.41-.41-.41h-17.26c-.22 0-.41.18-.41.41zm12.62 1.61h3.26c.28 0 .5.22.5.5s-.22.5-.5.5h-3.26c-.28 0-.5-.22-.5-.5s.22-.5.5-.5zm-5.03 0h3.26c.28 0 .5.22.5.5s-.22.5-.5.5h-3.26c-.28 0-.5-.22-.5-.5s.22-.5.5-.5zm-4.95 0h3.26c.28 0 .5.22.5.5s-.22.5-.5.5h-3.26c-.28 0-.5-.22-.5-.5s.23-.5.5-.5zm0 3.31h3.26c.28 0 .5.22.5.5s-.22.5-.5.5h-3.26c-.28 0-.5-.22-.5-.5s.23-.5.5-.5zm3.35 4.3h-3.26c-.28 0-.5-.22-.5-.5s.22-.5.5-.5h3.26c.28 0 .5.22.5.5s-.22.5-.5.5zm1.6-4.3h3.26c.28 0 .5.22.5.5s-.22.5-.5.5h-3.26c-.28 0-.5-.22-.5-.5s.22-.5.5-.5zm3.35 4.3h-3.26c-.28 0-.5-.22-.5-.5s.22-.5.5-.5h3.26c.28 0 .5.22.5.5s-.22.5-.5.5zm1.68-4.3h3.26c.28 0 .5.22.5.5s-.22.5-.5.5h-3.26c-.28 0-.5-.22-.5-.5s.22-.5.5-.5zm3.35 4.3h-3.26c-.28 0-.5-.22-.5-.5s.22-.5.5-.5h3.26c.28 0 .5.22.5.5s-.22.5-.5.5z" />
+    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+    <line x1="16" y1="2" x2="16" y2="6" />
+    <line x1="8" y1="2" x2="8" y2="6" />
+    <line x1="3" y1="10" x2="21" y2="10" />
   </svg>
 );
 

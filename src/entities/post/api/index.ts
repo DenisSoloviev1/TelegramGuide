@@ -98,14 +98,14 @@ export const updatePost = async (
  */
 export const deletePost = async (id: IPost["id"]): Promise<boolean> => {
   try {
-    const response = await apiRequest<boolean>(
+    const response = await apiRequest<{success: boolean}>(
       "POST",
       "/posts/delete",
       undefined,
       { id }
     );
 
-    return response;
+    return response.success;
   } catch (error) {
     console.error("Ошибка при удалении поста:", error);
     throw new Error("Ошибка при удалении поста.");

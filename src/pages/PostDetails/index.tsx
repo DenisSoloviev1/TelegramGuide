@@ -9,7 +9,7 @@ import {
   UpdateSvg,
   Flex,
   NoDataSvg,
-  ArrowLeft,
+  ArrowLeftSvg,
 } from "@/shared/ui";
 import { baseUrl } from "@/shared/config";
 import { PostContainer, PublicDate } from "@/entities/post/ui/style";
@@ -34,7 +34,7 @@ export const PostDetails: React.FC = () => {
       <Toaster />
 
       <CustomButton onClick={() => navigate(-1)}>
-        <ArrowLeft size={30} /> вернуться
+        <ArrowLeftSvg />
       </CustomButton>
 
       {isError ? (

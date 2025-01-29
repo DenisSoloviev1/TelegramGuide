@@ -102,9 +102,7 @@ const PostModal: React.FC<PostModalProps> = ({
         </form>
       ) : (
         <Flex $align="center" $gap={20}>
-          <PageText $fontSize={25}>
-            Вы уверены, что хотите удалить этот пост?
-          </PageText>
+          <PageText $fontSize={25}>Подтвердите действие</PageText>
 
           <Flex $direction="row" $justify="center" $gap={30}>
             <CustomButton type="button" onClick={handleDelete}>

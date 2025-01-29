@@ -91,14 +91,14 @@ export const updateCategory = async (
  */
 export const deleteCategory = async (id: ICategory["id"]): Promise<boolean> => {
   try {
-    const response = await apiRequest<boolean>(
+    const response = await apiRequest<{success: boolean}>(
       "POST",
       "/category/delete",
       undefined,
       { id }
     );
 
-    return response;
+    return response.success;
   } catch (error) {
     console.error("Ошибка при удалении категории:", error);
     throw new Error("Ошибка при удалении категории.");

@@ -9,11 +9,11 @@ export const CategoryCard = styled.a`
   border-radius: 6px;
   border: 1px solid var(--color-font-disable);
   background-color: var(--color-background-container);
-  color: var(--color-font);
+  color: var(--color-font) !important;
+  text-decoration-color: var(--color-font);
   transition: all 0.3s ease-in-out;
 
   &:hover {
-    text-decoration: underline;
     border: 1px solid var(--color-background-container);
     box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
   }
@@ -21,11 +21,27 @@ export const CategoryCard = styled.a`
   img {
     height: 40px;
     width: 40px;
-    border-radius: 3px;
+    border-radius: 2px;
     object-fit: cover;
   }
 
   span {
     font-size: 16px;
+    color: var(--color-font);
+  }
+`;
+
+export const CategoryContainer = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  margin: 20px 0;
+
+  img {
+    height: 40px;
+    width: 40px;
+    border-radius: 2px;
+    object-fit: cover;
   }
 `;
