@@ -11,7 +11,7 @@ export const Grid = styled.div<{ $column: number; $gap?: number }>`
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 670px) {
     grid-template-columns: repeat(1, 1fr);
   }
 `;

@@ -6,6 +6,7 @@ import {
   Followers,
   KeyWords,
   ChannelAction,
+  ChannelImage,
 } from "./style";
 import { IChannel } from "../model";
 import {
@@ -22,8 +23,8 @@ import { useAuthStore } from "@/entities/user";
 const MAX_DESCRIPTION_LENGTH = 50;
 
 interface ChannelProps extends IChannel {
-  onEditClick: () => void;
-  onDeleteClick: () => void;
+  onEditClick?: () => void;
+  onDeleteClick?: () => void;
 }
 
 export const Channel: React.FC<ChannelProps> = ({
@@ -44,7 +45,7 @@ export const Channel: React.FC<ChannelProps> = ({
       id={`${id}`}
       onClick={() => window.open(`https://t.me/${userName}`, "_blank")}
     >
-      <img src={`${baseUrl}/media/get/${imageId}`} alt="channel_img" />
+      <ChannelImage src={`${baseUrl}/media/get/${imageId}`} alt="channel_img" />
 
       <Flex $gap={5}>
         <Name>{name}</Name>
@@ -73,25 +74,29 @@ export const Channel: React.FC<ChannelProps> = ({
 
       {role === RolesDict.ADMIN && (
         <ChannelAction>
-          <CustomButton
-            $mode="svg"
-            onClick={(e) => {
-              e.stopPropagation();
-              onEditClick();
-            }}
-          >
-            <UpdateSvg />
-          </CustomButton>
+          {onEditClick && (
+            <CustomButton
+              $mode="svg"
+              onClick={(e) => {
+                e.stopPropagation();
+                onEditClick(); // Теперь вызывается только если `onEditClick` передан
+              }}
+            >
+              <UpdateSvg />
+            </CustomButton>
+          )}
 
-          <CustomButton
-            $mode="svg"
-            onClick={(e) => {
-              e.stopPropagation();
-              onDeleteClick();
-            }}
-          >
-            <DeleteSvg />
-          </CustomButton>
+          {onDeleteClick && (
+            <CustomButton
+              $mode="svg"
+              onClick={(e) => {
+                e.stopPropagation();
+                onDeleteClick(); // Теперь вызывается только если `onDeleteClick` передан
+              }}
+            >
+              <DeleteSvg />
+            </CustomButton>
+          )}
         </ChannelAction>
       )}
     </ChannelCard>

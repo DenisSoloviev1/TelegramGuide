@@ -2,14 +2,22 @@ import styled from "styled-components";
 
 export const PageTitle = styled.h1`
   margin: 20px 0;
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 500;
+
+  @media screen and (max-width: 670px) {
+    font-size: 28px;
+  }
 `;
 
 export const SectionTitle = styled.h2`
-  margin: 20px 0 15px;
+  margin-bottom: 20px;
   font-size: 24px;
   font-weight: 500;
+
+  @media screen and (max-width: 400px) {
+    font-size: 20px;
+  }
 `;
 
 export const PageText = styled.p<{ $fontSize?: number }>`
@@ -52,5 +60,26 @@ export const StatisticCard = styled.div`
     font-size: 20px;
     font-weight: 400;
     color: var(--color-font);
+  }
+`;
+
+export const AuthContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 450px;
+  border-radius: 16px;
+  border: 1px solid var(--color-font-disable);
+  background-color: var(--color-background-container);
+  padding: 20px;
+
+  form {
+    width: 100%;
+  }
+
+  h3 {
+    font-size: 24px;
   }
 `;

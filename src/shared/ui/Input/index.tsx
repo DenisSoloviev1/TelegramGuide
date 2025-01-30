@@ -1,6 +1,12 @@
 import { TextFieldProps } from "@mui/material";
 import { forwardRef } from "react";
-import { InputContainer, InputField, TextAreaField, Lable, Error } from "./style";
+import {
+  InputContainer,
+  InputField,
+  TextAreaField,
+  Lable,
+  Error,
+} from "./style";
 
 interface Props extends Omit<TextFieldProps, "variant" | "error"> {
   label: string;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { IPost } from "../model";
 import { getPosts } from "../api";
 import toast from "react-hot-toast";
@@ -7,25 +7,30 @@ export const useGetPosts = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [skip, setSkip] = useState(0); // Текущее количество пропущенных постов
 
-  useEffect(() => {
+  // Функция для загрузки постов
+  const fetchPosts = async (take: number, skip: number) => {
     setIsLoading(true);
-    const fetchPosts = async () => {
-      try {
-        const response = await getPosts(10, 0);//взято 10, пропущенно 0
-        setPosts(response);
-      } catch (error) {
-        console.error(error);
-        setIsError(true);
-        toast.error("Ошибка загрузки постов");
-        setIsLoading(false);
-      } finally {
-        setIsLoading(false);
+    try {
+      const response = await getPosts(take, skip);
+      if (response) {
+        setPosts((prevPosts) => [...prevPosts, ...response]); // Добавляем новые посты к уже загруженным
       }
-    };
+    } catch (error) {
+      console.error(error);
+      setIsError(true);
+      toast.error("Ошибка загрузки постов");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-    fetchPosts();
-  }, []);
+  // Функция для загрузки следующей порции постов
+  const loadMorePosts = async (take: number) => {
+    await fetchPosts(take, skip);
+    setSkip((prevSkip) => prevSkip + take); // Увеличиваем количество пропущенных постов
+  };
 
-  return { posts, isLoading, isError };
+  return { posts, isLoading, isError, loadMorePosts };
 };

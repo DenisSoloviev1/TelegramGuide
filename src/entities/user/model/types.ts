@@ -1,7 +1,12 @@
 import { Roles } from "@/shared/types";
 
 export interface IUser {
-  id: number;
+  auth: string;
   role: Roles;
-  userName: string;
+  userName?: string;
+}
+
+export interface IAuth {
+  login: string;
+  password: string;
 }

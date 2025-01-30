@@ -16,13 +16,13 @@ export const ChannelCard = styled.div`
     box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
     cursor: pointer;
   }
+`;
 
-  img {
-    width: 100px;
-    height: 100px;
-    border-radius: 100%;
-    object-fit: cover;
-  }
+export const ChannelImage = styled.img`
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  object-fit: cover;
 `;
 
 export const Name = styled.h3`

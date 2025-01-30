@@ -3,16 +3,21 @@ import { IChannel } from "../model";
 import { getChannels } from "../api";
 import toast from "react-hot-toast";
 
-export const useGetChannels = (channelId: IChannel["id"]) => {
+export const useGetChannels = (
+  take: number,
+  skip: number,
+  categoryId?: IChannel["categoryId"],
+  search?: string
+) => {
   const [channels, setChannels] = useState<IChannel[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
-    const fetchGetChannels = async () => {
+    const fetchChannels = async () => {
+      setIsLoading(true);
       try {
-        const response = await getChannels(10, 0, channelId);
+        const response = await getChannels(take, skip, categoryId, search);
         setChannels(response);
         if (response === null) {
           setIsError(true);
@@ -21,14 +26,15 @@ export const useGetChannels = (channelId: IChannel["id"]) => {
         console.error(error);
         setIsError(true);
         toast.error("Ошибка загрузки каналов");
-        setIsLoading(false);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchGetChannels();
-  }, []);
+    if (categoryId !== undefined) {
+      fetchChannels();
+    }
+  }, [take, skip, categoryId, search]); // Зависимости для повторного запроса при изменении параметров
 
   return { channels, isLoading, isError };
 };

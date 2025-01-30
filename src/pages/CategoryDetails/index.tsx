@@ -14,11 +14,11 @@ import {
   UpdateSvg,
 } from "@/shared/ui";
 import { useGetCategoryById } from "@/entities/category";
-import { PageImage, SectionTitle } from "../style";
+import { PageImage, PageText } from "../style";
 import { RolesDict } from "@/shared/types";
 import { baseUrl } from "@/shared/config";
 import CategoryModal from "@/widjets/CategoryModal";
-import { CategoryContainer } from "@/entities/category/ui/style";
+import { CategoryContainer, CategoryImage } from "@/entities/category/ui/style";
 import ChannelModal from "@/widjets/ChannelModal";
 import { Channel, IChannel, useGetChannels } from "@/entities/channel";
 
@@ -37,7 +37,7 @@ export const CategoryDetails: React.FC = () => {
     channels,
     isLoading: isLoadingChannels,
     isError: isErrorChannels,
-  } = useGetChannels(category?.id);
+  } = useGetChannels(10, 0, category?.id);
 
   // состояния открытия редактирования и удаления категории
   const [showUpdateCategoryModal, setShowUpdateCategoryModal] =
@@ -78,12 +78,12 @@ export const CategoryDetails: React.FC = () => {
         <CategoryContainer>
           <Flex $direction="row" $align="center" $gap={15}>
             <Flex $width="auto" $direction="row" $align="center" $gap={5}>
-              <img
+              <CategoryImage
                 src={`${baseUrl}/media/get/${category?.imageId}`}
                 alt="post_img"
               />
 
-              <SectionTitle>{category?.name}</SectionTitle>
+              <PageText $fontSize={24}>{category?.name}</PageText>
             </Flex>
 
             {role === RolesDict.ADMIN && (

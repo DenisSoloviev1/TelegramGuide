@@ -18,13 +18,6 @@ export const CategoryCard = styled.a`
     box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
   }
 
-  img {
-    height: 40px;
-    width: 40px;
-    border-radius: 2px;
-    object-fit: cover;
-  }
-
   span {
     font-size: 16px;
     color: var(--color-font);
@@ -37,11 +30,11 @@ export const CategoryContainer = styled.div`
   flex-direction: column;
   border-radius: 16px;
   margin: 20px 0;
+`;
 
-  img {
-    height: 40px;
-    width: 40px;
-    border-radius: 2px;
-    object-fit: cover;
-  }
+export const CategoryImage = styled.img`
+  height: 40px;
+  width: 40px;
+  border-radius: 2px;
+  object-fit: cover;
 `;
