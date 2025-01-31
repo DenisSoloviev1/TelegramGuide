@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IPost } from "../model";
 import { getPosts } from "../api";
 import toast from "react-hot-toast";
@@ -26,10 +26,16 @@ export const useGetPosts = () => {
     }
   };
 
+  // Загрузка постов при монтировании компонента
+  useEffect(() => {
+    fetchPosts(20, 0); 
+  }, []); 
+
   // Функция для загрузки следующей порции постов
   const loadMorePosts = async (take: number) => {
-    await fetchPosts(take, skip);
-    setSkip((prevSkip) => prevSkip + take); // Увеличиваем количество пропущенных постов
+    const newSkip = skip + take; 
+    await fetchPosts(take, newSkip); 
+    setSkip(newSkip); 
   };
 
   return { posts, isLoading, isError, loadMorePosts };

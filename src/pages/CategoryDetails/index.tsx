@@ -14,7 +14,7 @@ import {
   UpdateSvg,
 } from "@/shared/ui";
 import { useGetCategoryById } from "@/entities/category";
-import { PageImage, PageText } from "../style";
+import { PageImage, SectionTitle } from "../style";
 import { RolesDict } from "@/shared/types";
 import { baseUrl } from "@/shared/config";
 import CategoryModal from "@/widjets/CategoryModal";
@@ -83,7 +83,7 @@ export const CategoryDetails: React.FC = () => {
                 alt="post_img"
               />
 
-              <PageText $fontSize={24}>{category?.name}</PageText>
+              <SectionTitle>{category?.name}</SectionTitle>
             </Flex>
 
             {role === RolesDict.ADMIN && (

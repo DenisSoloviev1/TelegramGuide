@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { Skeleton } from "@mui/material";
 import { Post } from "@/entities/post";
-import { PageImage, PageText } from "../style";
+import { PageImage, SectionTitle } from "../style";
 import { Flex, Grid, CustomButton, NoDataSvg } from "@/shared/ui";
 import { useAuthStore } from "@/entities/user";
 import { RolesDict } from "@/shared/types";
@@ -15,7 +15,7 @@ export const Posts: React.FC = () => {
   const [showAddModal, setShowAddModal] = useState<boolean>(false);
 
   const handleLoadMore = async () => {
-    await loadMorePosts(20); 
+    await loadMorePosts(20);
   };
 
   return (
@@ -23,7 +23,7 @@ export const Posts: React.FC = () => {
       <Toaster />
 
       <Flex $direction={"row"} $align={"center"} $gap={20}>
-        <PageText $fontSize={24}>Посты</PageText>
+        <SectionTitle>Посты</SectionTitle>
 
         {role === RolesDict.ADMIN && (
           <CustomButton onClick={() => setShowAddModal(true)}>

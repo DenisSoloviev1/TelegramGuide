@@ -1,6 +1,8 @@
 import { apiRequest } from "@/shared/config";
 import { IPost } from "../model";
 
+const auth = localStorage.getItem("auth") || "";
+
 /**
  * Создание поста.
  * @param data - параметры поста (изображение, заголовок, текст).
@@ -11,6 +13,7 @@ export const addPost = async (data: IPost): Promise<IPost> => {
     const response = await apiRequest<{ post: IPost }>(
       "POST",
       "/posts/create",
+      auth,
       data
     );
 
@@ -35,6 +38,7 @@ export const getPosts = async (
     const response = await apiRequest<{ list: IPost[] }>(
       "GET",
       "/posts/list",
+      "", //пустой токен авторизации
       undefined,
       { take, skip }
     );
@@ -56,6 +60,7 @@ export const getPostById = async (id: IPost["id"]): Promise<IPost> => {
     const response = await apiRequest<{ post: IPost }>(
       "GET",
       "/posts/get",
+      "", //пустой токен авторизации
       undefined,
       { id }
     );
@@ -81,6 +86,7 @@ export const updatePost = async (
     const response = await apiRequest<{ post: IPost }>(
       "POST",
       `/posts/update?id=${id}`,
+      auth,
       data
     );
 
@@ -98,9 +104,10 @@ export const updatePost = async (
  */
 export const deletePost = async (id: IPost["id"]): Promise<boolean> => {
   try {
-    const response = await apiRequest<{success: boolean}>(
+    const response = await apiRequest<{ success: boolean }>(
       "POST",
       "/posts/delete",
+      auth,
       undefined,
       { id }
     );

@@ -31,7 +31,7 @@ export const Home: React.FC = () => {
       <SectionTitle>Статистика по каналам</SectionTitle>
 
       {!isErrorStatisticsChannels && (
-        <Flex $direction="row" $gap={20} $wrap style={{ marginBottom: "20px" }}>
+        <Flex $direction="row" $gap={20} $wrap style={{ margin: "20px 0" }}>
           {isLoadingStatisticsChannels ? (
             Array.from({ length: 3 }).map((_, index) => (
               <Skeleton

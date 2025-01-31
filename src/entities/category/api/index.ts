@@ -1,6 +1,8 @@
 import { apiRequest } from "@/shared/config";
 import { ICategory } from "../model";
 
+const auth = localStorage.getItem("auth") || "";
+
 /**
  * Создание категории.
  * @param data - параметры категории (изображение, название).
@@ -11,6 +13,7 @@ export const addCategory = async (data: ICategory): Promise<ICategory> => {
     const response = await apiRequest<{ post: ICategory }>(
       "POST",
       "/category/create",
+      auth,
       data
     );
 
@@ -44,11 +47,14 @@ export const getCategories = async (): Promise<ICategory[]> => {
  * @param id - id нужной категории.
  * @returns Promise с результатом операции.
  */
-export const getCategoryById = async (id: ICategory["id"]): Promise<ICategory> => {
+export const getCategoryById = async (
+  id: ICategory["id"]
+): Promise<ICategory> => {
   try {
     const response = await apiRequest<{ category: ICategory }>(
       "GET",
       "/category/get",
+      "", //пустой токен авторизации
       undefined,
       { id }
     );
@@ -74,6 +80,7 @@ export const updateCategory = async (
     const response = await apiRequest<{ category: ICategory }>(
       "POST",
       `/category/update?id=${id}`,
+      auth,
       data
     );
 
@@ -91,9 +98,10 @@ export const updateCategory = async (
  */
 export const deleteCategory = async (id: ICategory["id"]): Promise<boolean> => {
   try {
-    const response = await apiRequest<{success: boolean}>(
+    const response = await apiRequest<{ success: boolean }>(
       "POST",
       "/category/delete",
+      auth,
       undefined,
       { id }
     );

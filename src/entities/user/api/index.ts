@@ -14,6 +14,7 @@ export const authUser = async (
     const response = await apiRequest<{ auth: IUser["auth"]; role: Roles }>(
       "POST",
       "/auth/login",
+      "", //пустой токен авторизации
       data
     );
 

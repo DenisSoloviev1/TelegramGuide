@@ -7,29 +7,24 @@ import { baseUrl } from ".";
  * @param endpoint - Конечный путь API.
  * @param data - Тело запроса (если нужно).
  * @param params - URL-параметры (опционально).
+ * @param token - токен авторизации.
  * @returns Promise с данными ответа от сервера.
  */
 export const apiRequest = async <T>(
   method: Method,
   endpoint: string,
+  auth?: string,
   data?: object,
-  params?: object
+  params?: object,
 ): Promise<T> => {
   try {
-    // const token = localStorage.getItem("authToken");
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzM4MDk4NjAxLCJleHAiOjE3MzgxODUwMDF9.7tZfDGi-MGTvHS_IhDrlAWzoehnr-Cv3csn6AMXJT3g";
-    if (!token) {
-      throw new Error("Токен авторизации отсутствует");
-    }
-
     const config: AxiosRequestConfig = {
       method,
       url: `${baseUrl}${endpoint}`, // Полный URL
       data, // Тело запроса
       params, // Если метод GET - параметры в URL
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${auth}`,
         "Content-Type": "application/json",
       },
     };

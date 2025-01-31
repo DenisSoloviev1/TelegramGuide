@@ -72,7 +72,7 @@ const PostModal: React.FC<PostModalProps> = ({
   };
 
   return (
-    <ModalWindow show={show} onClick={onClose} width={isMobile ? "90%" : "50%"}>
+    <ModalWindow show={show} onClick={onClose} width={isMobile ? "90%" : "40%"}>
       {mode === "add" || mode === "update" ? (
         <form onSubmit={handleSubmit(handleFormSubmit)}>
           <Flex $direction="column" $align={"center"}>
@@ -90,7 +90,6 @@ const PostModal: React.FC<PostModalProps> = ({
             <Input
               label="Изображение"
               type="file"
-              {...register("base64", { required: "Изображение обязателено" })}
               onChange={handleFileChange}
               error={errors.base64?.message}
             />

@@ -49,13 +49,18 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
   };
 
   const handleFormSubmit: SubmitHandler<ICategory> = async (data) => {
+    if (!data.base64 && mode === "add") {
+      toast.error("Изображение обязательно");
+      return;
+    }
+
     try {
       if (mode === "add") {
         await addCategory(data);
         toast.success("Категория создана");
       } else {
         await updateCategory(data, сategoryData?.id);
-        toast.success("Категория отредактированна");
+        toast.success("Категория отредактирована");
       }
       onClose();
       reset();
@@ -87,13 +92,13 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
           <Flex $direction="column" $align={"center"}>
             <Input
               label="Название"
-              {...register("name", { required: "Название обязателено" })}
+              {...register("name", { required: "Название обязательно" })}
               error={errors.name?.message}
             />
             <Input
               label="Изображение"
               type="file"
-              onChange={handleFileChange}
+              onChange={handleFileChange} // Обработчик изменения файла
               error={errors.base64?.message}
             />
 

@@ -1,6 +1,8 @@
 import { apiRequest } from "@/shared/config";
 import { IChannel, IStatistics } from "../model";
 
+const auth = localStorage.getItem("auth") || "";
+
 /**
  * Создание канала.
  * @param data - параметры категории (имя пользователя телеграмм, id категории, ключевые слова).
@@ -11,6 +13,7 @@ export const addChannel = async (data: IChannel): Promise<IChannel> => {
     const response = await apiRequest<{ channel: IChannel }>(
       "POST",
       "/channel/create",
+      auth,
       data
     );
 
@@ -25,22 +28,23 @@ export const addChannel = async (data: IChannel): Promise<IChannel> => {
  * Получение каналов.
  * @param take - количество полученных каналов.
  * @param skip - пропущенные при получении.
- * @param id - id категории, чтобы получить относящиеся к ней каналы.
+ * @param categoryId - id категории, чтобы получить относящиеся к ней каналы.
  * @param search - текст введенный в строку поиска.
  * @returns Promise с результатом операции.
  */
 export const getChannels = async (
   take: number,
   skip: number,
-  id?: number,
+  categoryId?: number,
   search?: string
 ): Promise<IChannel[]> => {
   try {
     const response = await apiRequest<{ list: IChannel[] }>(
       "GET",
       "/channel/list",
+      "", //пустой токен авторизации
       undefined,
-      { take, skip, id, search }
+      { take, skip, categoryId, search }
     );
 
     return response.list;
@@ -64,6 +68,7 @@ export const updateKeywordsChannel = async (
     const response = await apiRequest<{ channel: IChannel }>(
       "POST",
       `/channel/keywords/update?id=${id}`,
+      auth,
       { keywords: keywords }
     );
 
@@ -84,6 +89,7 @@ export const deleteChannel = async (id: IChannel["id"]): Promise<boolean> => {
     const response = await apiRequest<{ success: boolean }>(
       "POST",
       "/channel/delete",
+      auth,
       undefined,
       { id }
     );
