@@ -37,7 +37,13 @@ export const CategoryDetails: React.FC = () => {
     channels,
     isLoading: isLoadingChannels,
     isError: isErrorChannels,
-  } = useGetChannels(10, 0, category?.id);
+    loadMoreChannels,
+  } = useGetChannels(categoryIdNumber);
+
+  console.log(category?.id)
+  const handleLoadMore = async () => {
+    await loadMoreChannels(20);
+  };
 
   // состояния открытия редактирования и удаления категории
   const [showUpdateCategoryModal, setShowUpdateCategoryModal] =
@@ -147,6 +153,11 @@ export const CategoryDetails: React.FC = () => {
                   ))}
             </Grid>
           )}
+
+          {/* Кнопка для загрузки следующих постов */}
+          <CustomButton onClick={handleLoadMore} disabled={isLoadingChannels}>
+            {isLoadingChannels ? "загрузка..." : "читать дальше"}
+          </CustomButton>
         </CategoryContainer>
       )}
 

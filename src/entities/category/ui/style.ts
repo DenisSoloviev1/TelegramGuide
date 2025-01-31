@@ -28,6 +28,7 @@ export const CategoryContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
   border-radius: 16px;
   margin: 20px 0;
 `;
