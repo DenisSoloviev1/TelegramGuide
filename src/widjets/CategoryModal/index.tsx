@@ -15,6 +15,7 @@ interface CategoryModalProps {
   mode: "add" | "update" | "delete";
   show: boolean;
   onClose: () => void;
+  onSuccess?: () => void;
   сategoryData?: ICategory; // Для редактирования и удаления
 }
 
@@ -22,6 +23,7 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
   mode,
   show,
   onClose,
+  onSuccess,
   сategoryData,
 }) => {
   const {
@@ -33,6 +35,11 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
   } = useForm<ICategory>({
     defaultValues: сategoryData || {},
   });
+
+  const handleSuccess = () => {
+    onSuccess?.(); // Вызываем onSuccess, если он передан
+    onClose(); // Закрываем модалку
+  };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -62,7 +69,7 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
         await updateCategory(data, сategoryData?.id);
         toast.success("Категория отредактирована");
       }
-      onClose();
+      handleSuccess();
       reset();
     } catch (error) {
       console.error(error);
@@ -74,7 +81,7 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
     try {
       await deleteCategory(сategoryData?.id);
       toast.success("Категория удалена");
-      onClose();
+      handleSuccess();
     } catch (error) {
       console.error(error);
       toast.error("Ошибка при удалении категории");

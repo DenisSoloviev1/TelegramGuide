@@ -8,24 +8,31 @@ export const useGetCategories = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  useEffect(() => {
+  const fetchCategories = async () => {
     setIsLoading(true);
-    const fetchCategories = async () => {
-      try {
-        const response = await getCategories();
-        setСategories(response);
-      } catch (error) {
-        console.error(error);
-        setIsError(true);
-        toast.error("Ошибка загрузки категорий");
-        setIsLoading(false);
-      } finally {
-        setIsLoading(false);
-      }
-    };
 
-    fetchCategories();
+    try {
+      const response = await getCategories();
+      setСategories(response);
+    } catch (error) {
+      console.error(error);
+      setIsError(true);
+      toast.error("Ошибка загрузки категорий");
+      setIsLoading(false);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Функция для повторной загрузки данных
+  const refetch = async () => {
+    await fetchCategories();
+  };
+
+  // Загрузка каналов при монтировании компонента
+  useEffect(() => {
+    refetch();
   }, []);
 
-  return { categories, isLoading, isError };
+  return { categories, isLoading, isError, refetch };
 };

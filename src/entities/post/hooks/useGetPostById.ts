@@ -8,27 +8,34 @@ export const useGetPostById = (postId: IPost["id"]) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  useEffect(() => {
+  const fetchPostById = async () => {
     setIsLoading(true);
-    const fetchPostById = async () => {
-      try {
-        const response = await getPostById(postId);
-        setPost(response);
-        if (response === null) {
-          setIsError(true);
-        }
-      } catch (error) {
-        console.error(error);
-        setIsError(true);
-        toast.error("Ошибка загрузки поста");
-        setIsLoading(false);
-      } finally {
-        setIsLoading(false);
-      }
-    };
 
-    fetchPostById();
+    try {
+      const response = await getPostById(postId);
+      setPost(response);
+      if (response === null) {
+        setIsError(true);
+      }
+    } catch (error) {
+      console.error(error);
+      setIsError(true);
+      toast.error("Ошибка загрузки поста");
+      setIsLoading(false);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Функция для повторной загрузки данных
+  const refetch = async () => {
+    await fetchPostById();
+  };
+
+  // Загрузка каналов при монтировании компонента
+  useEffect(() => {
+    refetch();
   }, []);
 
-  return { post, isLoading, isError };
+  return { post, isLoading, isError, refetch };
 };

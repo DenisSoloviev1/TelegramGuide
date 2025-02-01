@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const ChannelCard = styled.div`
+  width: 100%;
   position: relative;
   display: flex;
   align-items: center;
@@ -43,6 +44,7 @@ export const Followers = styled.div`
 
 export const KeyWords = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 
   span {

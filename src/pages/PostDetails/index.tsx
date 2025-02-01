@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
-import { Toaster } from "react-hot-toast";
 import {
   CalendarSvg,
   CustomButton,
@@ -27,12 +26,10 @@ export const PostDetails: React.FC = () => {
   const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const postIdNumber = postId ? Number(postId) : undefined;
-  const { post, isLoading, isError } = useGetPostById(postIdNumber);
+  const { post, isLoading, isError, refetch } = useGetPostById(postIdNumber);
 
   return (
     <>
-      <Toaster />
-
       <CustomButton onClick={() => navigate(-1)}>
         <ArrowLeftSvg />
       </CustomButton>
@@ -86,6 +83,7 @@ export const PostDetails: React.FC = () => {
         mode="update"
         show={showUpdateModal}
         onClose={() => setShowUpdateModal(false)}
+        onSuccess={() => refetch()}
         postData={post}
       />
 
@@ -93,6 +91,7 @@ export const PostDetails: React.FC = () => {
         mode="delete"
         show={showDeleteModal}
         onClose={() => setShowDeleteModal(false)}
+        onSuccess={() => refetch()}
         postData={post}
       />
     </>

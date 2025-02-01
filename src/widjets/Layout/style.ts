@@ -10,6 +10,12 @@ export const Header = styled.header`
   z-index: 2;
 `;
 
+export const Logo = styled.div`
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 export const Main = styled.main`
   width: 100%;
   display: flex;

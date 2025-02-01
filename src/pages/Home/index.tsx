@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { PageImage, SectionTitle, StatisticCard } from "../style";
 import { CustomButton, Flex, NoDataSvg } from "@/shared/ui";
-import { Toaster } from "react-hot-toast";
 import { useAuthStore } from "@/entities/user";
 import { RolesDict } from "@/shared/types";
 import { Category } from "@/entities/category";
@@ -16,6 +15,7 @@ export const Home: React.FC = () => {
     categories,
     isLoading: isLoadingCategories,
     isError: isErrorCategories,
+    refetch: refetchCaterogies
   } = useGetCategories();
   const {
     statisticsChannels,
@@ -26,8 +26,6 @@ export const Home: React.FC = () => {
 
   return (
     <>
-      <Toaster />
-
       <SectionTitle>Статистика по каналам</SectionTitle>
 
       {!isErrorStatisticsChannels && (
@@ -108,6 +106,7 @@ export const Home: React.FC = () => {
         mode="add"
         show={showAddModal}
         onClose={() => setShowAddModal(false)}
+        onSuccess={()=>refetchCaterogies()}
       />
     </>
   );

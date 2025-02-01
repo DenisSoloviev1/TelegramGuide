@@ -15,6 +15,7 @@ interface ChannelModalProps {
   mode: "add" | "update" | "delete";
   show: boolean;
   onClose: () => void;
+  onSuccess?: () => void;
   channelData?: IChannel; // Для редактирования и удаления
   categoryId?: number; // Для создания
 }
@@ -23,6 +24,7 @@ const ChannelModal: React.FC<ChannelModalProps> = ({
   mode,
   show,
   onClose,
+  onSuccess,
   channelData,
   categoryId,
 }) => {
@@ -37,6 +39,11 @@ const ChannelModal: React.FC<ChannelModalProps> = ({
   });
 
   setValue("categoryId", categoryId);
+
+  const handleSuccess = () => {
+    onSuccess?.(); // Вызываем onSuccess, если он передан
+    onClose(); // Закрываем модалку
+  };
 
   const handleFormSubmit: SubmitHandler<IChannel> = async (data) => {
     // Проверяем, является ли keywords массивом
@@ -59,7 +66,7 @@ const ChannelModal: React.FC<ChannelModalProps> = ({
         toast.success("Канал отредактирован");
       }
       reset();
-      onClose();
+      handleSuccess();
     } catch (error) {
       console.error(error);
       toast.error("Ошибка, попробуйте снова");
@@ -70,7 +77,7 @@ const ChannelModal: React.FC<ChannelModalProps> = ({
     try {
       await deleteChannel(channelData?.id);
       toast.success("Канал удален");
-      onClose();
+      handleSuccess();
     } catch (error) {
       console.error(error);
       toast.error("Ошибка при удалении канала");

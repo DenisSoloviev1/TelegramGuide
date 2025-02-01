@@ -140,7 +140,7 @@ export const SearchSvg = () => (
   </svg>
 );
 
-export const Logo = () => (
+export const LogoSvg = () => (
   <svg
     width="150"
     height="50"

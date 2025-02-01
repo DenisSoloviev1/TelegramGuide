@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Toaster } from "react-hot-toast";
 import { Skeleton } from "@mui/material";
 import { Post } from "@/entities/post";
 import { PageImage, SectionTitle } from "../style";
@@ -11,7 +10,7 @@ import { useGetPosts } from "@/entities/post";
 
 export const Posts: React.FC = () => {
   const { role } = useAuthStore();
-  const { posts, isLoading, isError, loadMorePosts } = useGetPosts();
+  const { posts, isLoading, isError, loadMorePosts, refetch } = useGetPosts();
   const [showAddModal, setShowAddModal] = useState<boolean>(false);
 
   const handleLoadMore = async () => {
@@ -20,8 +19,6 @@ export const Posts: React.FC = () => {
 
   return (
     <>
-      <Toaster />
-
       <Flex $direction={"row"} $align={"center"} $gap={20}>
         <SectionTitle>Посты</SectionTitle>
 
@@ -56,9 +53,13 @@ export const Posts: React.FC = () => {
           </Grid>
 
           {/* Кнопка для загрузки следующих постов */}
-          <CustomButton onClick={handleLoadMore} disabled={isLoading}>
-            {isLoading ? "загрузка..." : "читать дальше"}
-          </CustomButton>
+          {posts.length > 20 && (
+            <CustomButton onClick={handleLoadMore} disabled={isLoading}>
+              {isLoading ? "загрузка..." : "читать дальше"}
+            </CustomButton>
+          )}
+
+          {posts.length === 0 && <NoDataSvg />}
         </Flex>
       )}
 
@@ -66,6 +67,7 @@ export const Posts: React.FC = () => {
         mode="add"
         show={showAddModal}
         onClose={() => setShowAddModal(false)}
+        onSuccess={() => refetch()}
       />
     </>
   );

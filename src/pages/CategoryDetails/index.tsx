@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { CircularProgress, Skeleton } from "@mui/material";
-import { Toaster } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuthStore } from "@/entities/user";
 import {
@@ -32,15 +31,17 @@ export const CategoryDetails: React.FC = () => {
     category,
     isLoading: isLoadingCategory,
     isError: isErrorCategory,
+    refetch: refetchCategoryById,
   } = useGetCategoryById(categoryIdNumber);
   const {
     channels,
     isLoading: isLoadingChannels,
     isError: isErrorChannels,
     loadMoreChannels,
+    refetch: refetchChannels,
   } = useGetChannels(categoryIdNumber);
 
-  console.log(category?.id)
+  console.log(category?.id);
   const handleLoadMore = async () => {
     await loadMoreChannels(20);
   };
@@ -64,8 +65,6 @@ export const CategoryDetails: React.FC = () => {
 
   return (
     <>
-      <Toaster />
-
       <CustomButton onClick={() => navigate(-1)}>
         <ArrowLeftSvg />
       </CustomButton>
@@ -154,10 +153,14 @@ export const CategoryDetails: React.FC = () => {
             </Grid>
           )}
 
-          {/* Кнопка для загрузки следующих постов */}
-          <CustomButton onClick={handleLoadMore} disabled={isLoadingChannels}>
-            {isLoadingChannels ? "загрузка..." : "читать дальше"}
-          </CustomButton>
+          {/* Кнопка для загрузки следующих каналов */}
+          {channels.length > 20 && (
+            <CustomButton onClick={handleLoadMore} disabled={isLoadingChannels}>
+              {isLoadingChannels ? "загрузка..." : "читать дальше"}
+            </CustomButton>
+          )}
+
+          {channels.length === 0 && <NoDataSvg />}
         </CategoryContainer>
       )}
 
@@ -166,6 +169,7 @@ export const CategoryDetails: React.FC = () => {
         mode="update"
         show={showUpdateCategoryModal}
         onClose={() => setShowUpdateCategoryModal(false)}
+        onSuccess={() => refetchCategoryById()}
         сategoryData={category}
       />
 
@@ -173,6 +177,7 @@ export const CategoryDetails: React.FC = () => {
         mode="delete"
         show={showDeleteCategoryModal}
         onClose={() => setShowDeleteCategoryModal(false)}
+        onSuccess={() => refetchCategoryById()}
         сategoryData={category}
       />
 
@@ -181,6 +186,7 @@ export const CategoryDetails: React.FC = () => {
         mode="add"
         show={showAddChannelModal}
         onClose={() => setShowAddChannelModal(false)}
+        onSuccess={() => refetchChannels()}
         categoryId={categoryIdNumber}
       />
 
@@ -188,6 +194,7 @@ export const CategoryDetails: React.FC = () => {
         mode="update"
         show={showUpdateChannelModal}
         onClose={() => setShowUpdateChannelModal(false)}
+        onSuccess={() => refetchChannels()}
         channelData={selectedChannel}
       />
 
@@ -195,6 +202,7 @@ export const CategoryDetails: React.FC = () => {
         mode="delete"
         show={showDeleteChannelModal}
         onClose={() => setShowDeleteChannelModal(false)}
+        onSuccess={() => refetchChannels()}
         categoryId={categoryIdNumber}
         channelData={selectedChannel}
       />

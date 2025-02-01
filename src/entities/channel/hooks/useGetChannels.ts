@@ -17,7 +17,13 @@ export const useGetChannels = (
     try {
       const response = await getChannels(take, skip, categoryId, search);
       if (response) {
-        setChannels((prevPosts) => [...prevPosts, ...response]); // Добавляем новые посты к уже загруженным
+        if (skip === 0) {
+          // Если skip = 0, это новая загрузка (например, при refetch или изменении categoryId/search)
+          setChannels(response);
+        } else {
+          // Иначе добавляем новые каналы к уже загруженным
+          setChannels((prevChannels) => [...prevChannels, ...response]);
+        }
       }
       if (response === null) {
         setIsError(true);
@@ -31,17 +37,23 @@ export const useGetChannels = (
     }
   };
 
-  // Загрузка постов при монтировании компонента
-  useEffect(() => {
-    fetchChannels(20, 0);
-  }, []);
+  // Функция для повторной загрузки данных
+  const refetch = async () => {
+    setSkip(0);
+    await fetchChannels(20, 0); 
+  };
 
-  // Функция для загрузки следующей порции постов
+  // Загрузка каналов при монтировании компонента или изменении categoryId/search
+  useEffect(() => {
+    refetch(); 
+  }, [categoryId, search]);
+
+  // Функция для загрузки следующей порции каналов
   const loadMoreChannels = async (take: number) => {
     const newSkip = skip + take;
     await fetchChannels(take, newSkip);
     setSkip(newSkip);
   };
 
-  return { channels, isLoading, isError, loadMoreChannels };
+  return { channels, isLoading, isError, loadMoreChannels, refetch };
 };

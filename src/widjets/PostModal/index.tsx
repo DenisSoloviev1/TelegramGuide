@@ -10,6 +10,7 @@ interface PostModalProps {
   mode: "add" | "update" | "delete";
   show: boolean;
   onClose: () => void;
+  onSuccess?: () => void;
   postData?: IPost; // Для редактирования и удаления
 }
 
@@ -17,6 +18,7 @@ const PostModal: React.FC<PostModalProps> = ({
   mode,
   show,
   onClose,
+  onSuccess,
   postData,
 }) => {
   const {
@@ -28,6 +30,11 @@ const PostModal: React.FC<PostModalProps> = ({
   } = useForm<IPost>({
     defaultValues: postData || {},
   });
+
+  const handleSuccess = () => {
+    onSuccess?.(); // Вызываем onSuccess, если он передан
+    onClose(); // Закрываем модалку
+  };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -52,7 +59,7 @@ const PostModal: React.FC<PostModalProps> = ({
         await updatePost(data, postData?.id);
         toast.success("Пост отредактирован");
       }
-      onClose();
+      handleSuccess();
       reset();
     } catch (error) {
       console.error(error);
@@ -64,7 +71,7 @@ const PostModal: React.FC<PostModalProps> = ({
     try {
       await deletePost(postData?.id);
       toast.success("Пост удален");
-      onClose();
+      handleSuccess();
     } catch (error) {
       console.error(error);
       toast.error("Ошибка при удалении поста");
