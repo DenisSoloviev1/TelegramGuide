@@ -59,7 +59,11 @@ export const Posts: React.FC = () => {
             </CustomButton>
           )}
 
-          {posts.length === 0 && <NoDataSvg />}
+          {posts.length === 0 && (
+            <PageImage>
+              <NoDataSvg />
+            </PageImage>
+          )}
         </Flex>
       )}
 

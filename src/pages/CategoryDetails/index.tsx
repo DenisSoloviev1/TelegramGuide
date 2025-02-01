@@ -160,7 +160,11 @@ export const CategoryDetails: React.FC = () => {
             </CustomButton>
           )}
 
-          {channels.length === 0 && <NoDataSvg />}
+          {channels.length === 0 && (
+            <PageImage>
+              <NoDataSvg />
+            </PageImage>
+          )}
         </CategoryContainer>
       )}
 
