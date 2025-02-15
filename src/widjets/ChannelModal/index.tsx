@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ModalWindow, Flex, Input, CustomButton } from "@/shared/ui";
 import toast from "react-hot-toast";
@@ -8,7 +8,7 @@ import {
   addChannel,
   deleteChannel,
   IChannel,
-  updateKeywordsChannel,
+  updateChannel,
 } from "@/entities/channel";
 
 interface ChannelModalProps {
@@ -38,7 +38,12 @@ const ChannelModal: React.FC<ChannelModalProps> = ({
     defaultValues: channelData || {},
   });
 
-  setValue("categoryId", categoryId);
+  // Устанавливаем categoryId при монтировании компонента
+  useEffect(() => {
+    if (categoryId) {
+      setValue("categoryId", categoryId);
+    }
+  }, [categoryId, setValue]);
 
   const handleSuccess = () => {
     onSuccess?.(); // Вызываем onSuccess, если он передан
@@ -62,7 +67,10 @@ const ChannelModal: React.FC<ChannelModalProps> = ({
         await addChannel({ ...data, keywords: formattedKeywords });
         toast.success("Канал создан");
       } else {
-        await updateKeywordsChannel(formattedKeywords, channelData?.id);
+        await updateChannel(
+          { ...data, keywords: formattedKeywords },
+          channelData?.id
+        );
         toast.success("Канал отредактирован");
       }
       reset();
@@ -88,14 +96,16 @@ const ChannelModal: React.FC<ChannelModalProps> = ({
     <ModalWindow
       show={show}
       onClick={onClose}
-      width={isMobile ? "90%" : "400px"}
+      width={isMobile ? "90%" : "500px"}
     >
       {mode === "add" ? (
         <form onSubmit={handleSubmit(handleFormSubmit)}>
           <Flex $direction="column" $align={"center"}>
             <Input
-              label="Название"
-              {...register("userName", { required: "Название обязательно" })}
+              label="Имя телеграм"
+              {...register("userName", {
+                required: "Имя телеграм обязательно",
+              })}
               placeholder="user_name_telegram"
               error={errors.userName?.message}
             />
@@ -117,13 +127,35 @@ const ChannelModal: React.FC<ChannelModalProps> = ({
         <form onSubmit={handleSubmit(handleFormSubmit)}>
           <Flex $direction="column" $align={"center"}>
             <Input
+              label="Название"
+              {...register("name")}
+              defaultValue={channelData?.name}
+            />
+
+            <Input
+              label="Имя телеграм"
+              {...register("userName")}
+              defaultValue={channelData?.userName}
+              placeholder="user_name_telegram"
+            />
+
+            <Input
+              label="Описание"
+              type="textarea"
+              {...register("description")}
+              defaultValue={channelData?.description}
+            />
+
+            <Input
               label="Ключевые слова"
               type="textarea"
-              {...register("keywords", {
-                required: "Ключевые слова обязательны",
-              })}
+              {...register("keywords")}
+              defaultValue={
+                Array.isArray(channelData?.keywords)
+                  ? channelData?.keywords.join(" ")
+                  : channelData?.keywords
+              }
               placeholder="через пробел без запятых"
-              error={errors.keywords?.message}
             />
 
             <CustomButton type="submit">Редактировать</CustomButton>

@@ -6,4 +6,5 @@ export enum Path {
   POSTS = "/posts",
   POST_DETAILS = "/posts/:postId",
   CATEGORY_DETAILS = "/category/:categoryId",
+  CHANNEL_DETAILS = "/channel/:channelId",
 }

@@ -63,3 +63,27 @@ export const ChannelAction = styled.div`
   border-radius: 6px;
   padding: 5px;
 `;
+
+export const Background = styled.div`
+  width: 100%;
+  background: url(/background.png) no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 6px;
+`;
+
+export const ChannelAvatar = styled.img`
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.5);
+
+  @media screen and (max-width: 670px) {
+    width: 100px;
+    height: 100px;
+  }
+`;

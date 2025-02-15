@@ -19,7 +19,7 @@ import { baseUrl } from "@/shared/config";
 import CategoryModal from "@/widjets/CategoryModal";
 import { CategoryContainer, CategoryImage } from "@/entities/category/ui/style";
 import ChannelModal from "@/widjets/ChannelModal";
-import { Channel, IChannel, useGetChannels } from "@/entities/channel";
+import { Channel, useGetChannels } from "@/entities/channel";
 
 export const CategoryDetails: React.FC = () => {
   const navigate = useNavigate();
@@ -41,7 +41,6 @@ export const CategoryDetails: React.FC = () => {
     refetch: refetchChannels,
   } = useGetChannels(categoryIdNumber);
 
-  console.log(category?.id);
   const handleLoadMore = async () => {
     await loadMoreChannels(20);
   };
@@ -52,16 +51,9 @@ export const CategoryDetails: React.FC = () => {
   const [showDeleteCategoryModal, setShowDeleteCategoryModal] =
     useState<boolean>(false);
 
-  // состояния открытия создания, редактирования и удаления канала
+  // состояние открытия создания канала
   const [showAddChannelModal, setShowAddChannelModal] =
     useState<boolean>(false);
-  const [showUpdateChannelModal, setShowUpdateChannelModal] =
-    useState<boolean>(false);
-  const [showDeleteChannelModal, setShowDeleteChannelModal] =
-    useState<boolean>(false);
-
-  // выбранный канал
-  const [selectedChannel, setSelectedChannel] = useState<IChannel>();
 
   return (
     <>
@@ -137,18 +129,7 @@ export const CategoryDetails: React.FC = () => {
                     />
                   ))
                 : channels.map((channel) => (
-                    <Channel
-                      key={channel.id}
-                      {...channel}
-                      onEditClick={() => {
-                        setSelectedChannel(channel);
-                        setShowUpdateChannelModal(true);
-                      }}
-                      onDeleteClick={() => {
-                        setSelectedChannel(channel);
-                        setShowDeleteChannelModal(true);
-                      }}
-                    />
+                    <Channel key={channel.id} {...channel} />
                   ))}
             </Grid>
           )}
@@ -185,30 +166,13 @@ export const CategoryDetails: React.FC = () => {
         сategoryData={category}
       />
 
-      {/* модалки создания, редактирования и удаления канала */}
+      {/* модалка создания канала */}
       <ChannelModal
         mode="add"
         show={showAddChannelModal}
         onClose={() => setShowAddChannelModal(false)}
         onSuccess={() => refetchChannels()}
         categoryId={categoryIdNumber}
-      />
-
-      <ChannelModal
-        mode="update"
-        show={showUpdateChannelModal}
-        onClose={() => setShowUpdateChannelModal(false)}
-        onSuccess={() => refetchChannels()}
-        channelData={selectedChannel}
-      />
-
-      <ChannelModal
-        mode="delete"
-        show={showDeleteChannelModal}
-        onClose={() => setShowDeleteChannelModal(false)}
-        onSuccess={() => refetchChannels()}
-        categoryId={categoryIdNumber}
-        channelData={selectedChannel}
       />
     </>
   );

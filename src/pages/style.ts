@@ -82,3 +82,15 @@ export const AuthContainer = styled.div`
     font-size: 24px;
   }
 `;
+
+export const Container = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  padding: 20px;
+  margin: 20px 0;
+  background-color: var(--color-background-container);
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+  gap: 10px;
+`;

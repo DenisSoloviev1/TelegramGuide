@@ -4,7 +4,7 @@ export const CustomButton = styled.button<{ $mode?: "normal" | "svg" }>`
   ${(props) =>
     (props.$mode ?? "normal") === "normal" &&
     `display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   gap: 10px;
   background-color: var(--color-action);

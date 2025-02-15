@@ -15,7 +15,7 @@ export const Home: React.FC = () => {
     categories,
     isLoading: isLoadingCategories,
     isError: isErrorCategories,
-    refetch: refetchCaterogies
+    refetch: refetchCaterogies,
   } = useGetCategories();
   const {
     statisticsChannels,
@@ -26,42 +26,6 @@ export const Home: React.FC = () => {
 
   return (
     <>
-      <SectionTitle>Статистика по каналам</SectionTitle>
-
-      {!isErrorStatisticsChannels && (
-        <Flex $direction="row" $gap={20} $wrap style={{ margin: "20px 0" }}>
-          {isLoadingStatisticsChannels ? (
-            Array.from({ length: 3 }).map((_, index) => (
-              <Skeleton
-                key={index}
-                animation="wave"
-                variant="rounded"
-                width={200}
-                height={72}
-                style={{ borderRadius: "6px" }}
-              />
-            ))
-          ) : (
-            <>
-              <StatisticCard>
-                + {statisticsChannels?.today}
-                <span>добавлено сегодня</span>
-              </StatisticCard>
-
-              <StatisticCard>
-                + {statisticsChannels?.yesterday}
-                <span>добавлено вчера</span>
-              </StatisticCard>
-
-              <StatisticCard>
-                {statisticsChannels?.allTime}
-                <span>всего</span>
-              </StatisticCard>
-            </>
-          )}
-        </Flex>
-      )}
-
       <Flex $direction={"row"} $align={"center"} $gap={20}>
         <SectionTitle>Категории каналов</SectionTitle>
 
@@ -102,11 +66,47 @@ export const Home: React.FC = () => {
         </Flex>
       )}
 
+      <SectionTitle>Статистика по каналам</SectionTitle>
+
+      {!isErrorStatisticsChannels && (
+        <Flex $direction="row" $gap={20} $wrap style={{ margin: "20px 0" }}>
+          {isLoadingStatisticsChannels ? (
+            Array.from({ length: 3 }).map((_, index) => (
+              <Skeleton
+                key={index}
+                animation="wave"
+                variant="rounded"
+                width={200}
+                height={72}
+                style={{ borderRadius: "6px" }}
+              />
+            ))
+          ) : (
+            <>
+              <StatisticCard>
+                + {statisticsChannels?.today}
+                <span>добавлено сегодня</span>
+              </StatisticCard>
+
+              <StatisticCard>
+                + {statisticsChannels?.yesterday}
+                <span>добавлено вчера</span>
+              </StatisticCard>
+
+              <StatisticCard>
+                {statisticsChannels?.allTime}
+                <span>всего</span>
+              </StatisticCard>
+            </>
+          )}
+        </Flex>
+      )}
+
       <CategoryModal
         mode="add"
         show={showAddModal}
         onClose={() => setShowAddModal(false)}
-        onSuccess={()=>refetchCaterogies()}
+        onSuccess={() => refetchCaterogies()}
       />
     </>
   );

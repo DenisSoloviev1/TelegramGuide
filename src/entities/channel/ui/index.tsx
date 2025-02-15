@@ -5,100 +5,58 @@ import {
   UserName,
   Followers,
   KeyWords,
-  ChannelAction,
   ChannelImage,
 } from "./style";
 import { IChannel } from "../model";
-import {
-  CustomButton,
-  DeleteSvg,
-  Flex,
-  FollowerSvg,
-  UpdateSvg,
-} from "@/shared/ui";
+import { Flex, FollowerSvg } from "@/shared/ui";
 import { baseUrl } from "@/shared/config";
+import { useNavigate } from "react-router-dom";
 import { RolesDict } from "@/shared/types";
 import { useAuthStore } from "@/entities/user";
 
-const MAX_DESCRIPTION_LENGTH = 50;
+const MAX_DESCRIPTION_LENGTH = 60;
 
-interface ChannelProps extends IChannel {
-  onEditClick?: () => void;
-  onDeleteClick?: () => void;
-}
-
-export const Channel: React.FC<ChannelProps> = ({
-  id,
-  name,
-  userName,
-  description = "", // Дефолтное значение
-  imageId,
-  keywords,
-  membersCount,
-  onEditClick,
-  onDeleteClick,
-}) => {
+export const Channel: React.FC<IChannel> = (channel) => {
+  const navigate = useNavigate();
   const { role } = useAuthStore();
 
   return (
     <ChannelCard
-      id={`${id}`}
-      onClick={() => window.open(`https://t.me/${userName}`, "_blank")}
+      id={`${channel.id}`}
+      onClick={() => navigate(`/channel/${channel.id}`)}
     >
-      <ChannelImage src={`${baseUrl}/media/get/${imageId}`} alt="channel_img" />
+      <ChannelImage
+        src={`${baseUrl}/media/get/${channel.imageId}`}
+        alt="channel_img"
+      />
 
       <Flex $gap={5}>
-        <Name>{name}</Name>
+        <Name>{channel.name}</Name>
 
         <Flex $direction="row" $align="center" $gap={15}>
-          <UserName>@{userName}</UserName>
+          <UserName>@{channel.userName}</UserName>
 
           <Followers>
             <FollowerSvg />
-            {membersCount}
+            {channel.membersCount}
           </Followers>
         </Flex>
 
         <p>
-          {description.length > MAX_DESCRIPTION_LENGTH
-            ? `${description.slice(0, MAX_DESCRIPTION_LENGTH)}...`
-            : description}
+          {channel.description &&
+          channel.description.length > MAX_DESCRIPTION_LENGTH
+            ? `${channel.description.slice(0, MAX_DESCRIPTION_LENGTH)}...`
+            : channel.description || ""}
         </p>
 
-        <KeyWords>
-          {keywords.map((keyword) => (
-            <span key={keyword}>#{keyword}</span>
-          ))}
-        </KeyWords>
+        {role === RolesDict.ADMIN && (
+          <KeyWords>
+            {channel.keywords.map((keyword) => (
+              <span key={keyword}>#{keyword}</span>
+            ))}
+          </KeyWords>
+        )}
       </Flex>
-
-      {role === RolesDict.ADMIN && (
-        <ChannelAction>
-          {onEditClick && (
-            <CustomButton
-              $mode="svg"
-              onClick={(e) => {
-                e.stopPropagation();
-                onEditClick(); // Теперь вызывается только если `onEditClick` передан
-              }}
-            >
-              <UpdateSvg />
-            </CustomButton>
-          )}
-
-          {onDeleteClick && (
-            <CustomButton
-              $mode="svg"
-              onClick={(e) => {
-                e.stopPropagation();
-                onDeleteClick(); // Теперь вызывается только если `onDeleteClick` передан
-              }}
-            >
-              <DeleteSvg />
-            </CustomButton>
-          )}
-        </ChannelAction>
-      )}
     </ChannelCard>
   );
 };

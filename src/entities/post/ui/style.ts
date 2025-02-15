@@ -21,7 +21,7 @@ export const PostCard = styled.div`
   }
 `;
 
-export const PostImage = styled.div<{ $height?: string }>`
+export const PostCardImage = styled.div<{ $height?: string }>`
   width: 100%;
   height: ${(props) => (props.$height ? props.$height : "200px")};
   border-radius: 6px;
@@ -54,20 +54,9 @@ export const PublicDate = styled.span`
   }
 `;
 
-export const PostContainer = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  border-radius: 16px;
-  padding: 20px;
-  margin: 20px 0;
-  background-color: var(--color-background-container);
-  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
-
-  img {
-    max-height: 600px;
-    object-fit: cover;
-    background-position: center;
-  }
+export const PostImage = styled.img`
+  max-height: 600px;
+  object-fit: cover;
+  background-position: center;
+  border-radius: 6px;
 `;
-

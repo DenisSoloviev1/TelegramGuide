@@ -10,6 +10,7 @@ const Search = lazy(() => import("./Search"));
 const Posts = lazy(() => import("./Posts"));
 const PostDetails = lazy(() => import("./PostDetails"));
 const CategoryDetails = lazy(() => import("./CategoryDetails"));
+const ChannelDetails = lazy(() => import("./ChannelDetails"));
 
 export const Routing = () => {
   return (
@@ -22,6 +23,7 @@ export const Routing = () => {
         <Route path={Path.POSTS} element={<Posts />} />
         <Route path={Path.POST_DETAILS} element={<PostDetails />} />
         <Route path={Path.CATEGORY_DETAILS} element={<CategoryDetails />} />
+        <Route path={Path.CHANNEL_DETAILS} element={<ChannelDetails />} />
       </Route>
     </Routes>
   );

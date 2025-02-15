@@ -92,7 +92,7 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
     <ModalWindow
       show={show}
       onClick={onClose}
-      width={isMobile ? "90%" : "400px"}
+      width={isMobile ? "90%" : "500px"}
     >
       {mode === "add" || mode === "update" ? (
         <form onSubmit={handleSubmit(handleFormSubmit)}>
@@ -100,6 +100,7 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
             <Input
               label="Название"
               {...register("name", { required: "Название обязательно" })}
+              defaultValue={сategoryData?.name}
               error={errors.name?.message}
             />
             <Input

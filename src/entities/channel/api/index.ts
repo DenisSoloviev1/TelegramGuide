@@ -5,7 +5,7 @@ const auth = localStorage.getItem("auth") || "";
 
 /**
  * Создание канала.
- * @param data - параметры категории (имя пользователя телеграмм, id категории, ключевые слова).
+ * @param data - параметры канала (имя пользователя телеграмм, id категории, ключевые слова).
  * @returns Promise с результатом операции.
  */
 export const addChannel = async (data: IChannel): Promise<IChannel> => {
@@ -55,27 +55,49 @@ export const getChannels = async (
 };
 
 /**
- * Редактирование ключевых слов в канале.
- * @param keywords - ключевые слова.
+ * Получение подробной информации о канале.
+ * @param id - id нужного канала.
+ * @returns Promise с результатом операции.
+ */
+export const getChannelById = async (id: IChannel["id"]): Promise<IChannel> => {
+  try {
+    const response = await apiRequest<{ channel: IChannel }>(
+      "GET",
+      "/channel/get",
+      "", //пустой токен авторизации
+      undefined,
+      { id }
+    );
+
+    return response.channel;
+  } catch (error) {
+    console.error("Ошибка при получении информации о канале:", error);
+    throw new Error("Ошибка при получении информации о канале.");
+  }
+};
+
+/**
+ * Редактирование каналa.
+ * @param data - параметры канала (имя пользователя телеграмм, название, ключевые слова, описание).
  * @param id - id редактируемого канала.
  * @returns Promise с результатом операции.
  */
-export const updateKeywordsChannel = async (
-  keywords: IChannel["keywords"],
+export const updateChannel = async (
+  data: IChannel,
   id: IChannel["id"]
 ): Promise<IChannel> => {
   try {
     const response = await apiRequest<{ channel: IChannel }>(
       "POST",
-      `/channel/keywords/update?id=${id}`,
+      `/channel/update?id=${id}`,
       auth,
-      { keywords: keywords }
+      data
     );
 
     return response.channel;
   } catch (error) {
-    console.error("Ошибка при редактировании ключевых слов:", error);
-    throw new Error("Ошибка при редактировании ключевых слов.");
+    console.error("Ошибка при редактировании канала:", error);
+    throw new Error("Ошибка при редактировании канала.");
   }
 };
 

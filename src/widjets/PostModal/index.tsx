@@ -79,19 +79,25 @@ const PostModal: React.FC<PostModalProps> = ({
   };
 
   return (
-    <ModalWindow show={show} onClick={onClose} width={isMobile ? "90%" : "40%"}>
+    <ModalWindow
+      show={show}
+      onClick={onClose}
+      width={isMobile ? "90%" : "500px"}
+    >
       {mode === "add" || mode === "update" ? (
         <form onSubmit={handleSubmit(handleFormSubmit)}>
           <Flex $direction="column" $align={"center"}>
             <Input
               label="Заголовок"
               {...register("name", { required: "Заголовок обязателен" })}
+              defaultValue={postData?.name}
               error={errors.name?.message}
             />
             <Input
               label="Текст"
               type="textarea"
               {...register("text", { required: "Текст обязателен" })}
+              defaultValue={postData?.text}
               error={errors.text?.message}
             />
             <Input

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
 import {
-  CalendarSvg,
   CustomButton,
   DeleteSvg,
   UpdateSvg,
@@ -11,22 +10,22 @@ import {
   ArrowLeftSvg,
 } from "@/shared/ui";
 import { baseUrl } from "@/shared/config";
-import { PublicDate } from "@/entities/post/ui/style";
-import { formatterDate } from "@/shared/lib";
 import { useAuthStore } from "@/entities/user";
 import { PageImage, PageText, SectionTitle, Container } from "../style";
 import { RolesDict } from "@/shared/types";
-import { useGetPostById } from "@/entities/post";
-import PostModal from "@/widjets/PostModal";
+import { useGetChannelById } from "@/entities/channel";
+import ChannelModal from "@/widjets/ChannelModal";
+import { Background, ChannelAvatar } from "@/entities/channel/ui/style";
 
-export const PostDetails: React.FC = () => {
+export const ChannelDetails: React.FC = () => {
   const navigate = useNavigate();
   const { role } = useAuthStore();
-  const { postId } = useParams<{ postId: string }>();
+  const { channelId } = useParams<{ channelId: string }>();
   const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
-  const postIdNumber = postId ? Number(postId) : undefined;
-  const { post, isLoading, isError, refetch } = useGetPostById(postIdNumber);
+  const channelIdNumber = channelId ? Number(channelId) : undefined;
+  const { channel, isLoading, isError, refetch } =
+    useGetChannelById(channelIdNumber);
 
   return (
     <>
@@ -46,12 +45,7 @@ export const PostDetails: React.FC = () => {
         </Flex>
       ) : (
         <Container>
-          <Flex $direction="row" $align="center" $gap={15}>
-            <PublicDate>
-              <CalendarSvg />
-              {post?.createdAt && formatterDate(post.createdAt)}
-            </PublicDate>
-
+          <Flex $direction={"row"} $align="center" $gap={15}>
             {role === RolesDict.ADMIN && (
               <>
                 <CustomButton
@@ -71,31 +65,44 @@ export const PostDetails: React.FC = () => {
             )}
           </Flex>
 
-          <SectionTitle>{post?.name}</SectionTitle>
+          <Background>
+            <ChannelAvatar
+              src={`${baseUrl}/media/get/${channel?.imageId}`}
+              alt="channel_img"
+            />
+          </Background>
 
-          <img src={`${baseUrl}/media/get/${post?.imageId}`} alt="post_img" />
+          <SectionTitle>{channel?.name}</SectionTitle>
 
-          <PageText $fontSize={20}>{post?.text}</PageText>
+          <PageText $fontSize={20}>{channel?.description}</PageText>
+
+          <CustomButton
+            onClick={() =>
+              window.open(`https://t.me/${channel?.userName}`, "_blank")
+            }
+          >
+            перейти
+          </CustomButton>
         </Container>
       )}
 
-      <PostModal
+      <ChannelModal
         mode="update"
         show={showUpdateModal}
         onClose={() => setShowUpdateModal(false)}
         onSuccess={() => refetch()}
-        postData={post}
+        channelData={channel}
       />
 
-      <PostModal
+      <ChannelModal
         mode="delete"
         show={showDeleteModal}
         onClose={() => setShowDeleteModal(false)}
         onSuccess={() => refetch()}
-        postData={post}
+        channelData={channel}
       />
     </>
   );
 };
 
-export default PostDetails;
+export default ChannelDetails;
