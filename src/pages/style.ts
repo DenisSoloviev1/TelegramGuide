@@ -40,7 +40,7 @@ export const PageImage = styled.div`
 
   @media screen and (max-width: 900px) {
     margin-right: 0;
-    margin-bottom: 50px;
+    margin: 50px 0;
   }
 `;
 
@@ -93,4 +93,8 @@ export const Container = styled.div`
   background-color: var(--color-background-container);
   box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
   gap: 10px;
+
+  @media screen and (max-width: 600px) {
+    padding: 10px;
+  }
 `;

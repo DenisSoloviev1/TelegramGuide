@@ -41,6 +41,10 @@ export const SearchContainer = styled.div`
   width: 300px;
   background: var(--color-action);
   border-radius: 8px;
+
+  @media screen and (min-width: 600px) {
+    width: 400px;
+  }
 `;
 
 export const SearchInput = styled.input`

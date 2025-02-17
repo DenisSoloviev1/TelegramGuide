@@ -33,7 +33,7 @@ export const Channel: React.FC<IChannel> = (channel) => {
       <Flex $gap={5}>
         <Name>{channel.name}</Name>
 
-        <Flex $direction="row" $align="center" $gap={15}>
+        <Flex $direction="row" $align="center" $gap={5} $wrap>
           <UserName>@{channel.userName}</UserName>
 
           <Followers>

@@ -63,28 +63,35 @@ const CategoryModal: React.FC<CategoryModalProps> = ({
 
     try {
       if (mode === "add") {
-        await addCategory(data);
-        toast.success("Категория создана");
+        await toast.promise(addCategory(data), {
+          loading: "Создание категории...",
+          success: "Категория создана",
+          error: "Категория не создана",
+        });
       } else {
-        await updateCategory(data, сategoryData?.id);
-        toast.success("Категория отредактирована");
+        await toast.promise(updateCategory(data, сategoryData?.id), {
+          loading: "Редактирование категории...",
+          success: "Категория отредактирована",
+          error: "Категория не редактирована",
+        });
       }
       handleSuccess();
       reset();
     } catch (error) {
       console.error(error);
-      toast.error("Ошибка, попробуйте снова");
     }
   };
 
   const handleDelete = async () => {
     try {
-      await deleteCategory(сategoryData?.id);
-      toast.success("Категория удалена");
+      await toast.promise(deleteCategory(сategoryData?.id), {
+        loading: "Удаление категории...",
+        success: "Категория удалена",
+        error: "Категория не удалена",
+      });
       handleSuccess();
     } catch (error) {
       console.error(error);
-      toast.error("Ошибка при удалении категории");
     }
   };
 

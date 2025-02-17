@@ -53,12 +53,7 @@ const Layout: React.FC = () => {
           <PageTitle>Ищи. Подписывайся. Наслаждайся!</PageTitle>
 
           {/* Блок поиска */}
-          <Flex
-            $direction={isMobile ? "column" : "row"}
-            $align="center"
-            $gap={10}
-            style={{ marginBottom: "20px" }}
-          >
+          <Flex $gap={10} style={{ marginBottom: "20px" }}>
             <SearchContainer role="search">
               <SearchInput
                 type="search"

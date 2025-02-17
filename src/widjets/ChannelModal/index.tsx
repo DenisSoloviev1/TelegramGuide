@@ -64,31 +64,44 @@ const ChannelModal: React.FC<ChannelModalProps> = ({
 
     try {
       if (mode === "add") {
-        await addChannel({ ...data, keywords: formattedKeywords });
-        toast.success("Канал создан");
-      } else {
-        await updateChannel(
-          { ...data, keywords: formattedKeywords },
-          channelData?.id
+        await toast.promise(
+          addChannel({ ...data, keywords: formattedKeywords }),
+          {
+            loading: "Создание канала...",
+            success: "Канал создан",
+            error: "Канал не создан",
+          }
         );
-        toast.success("Канал отредактирован");
+      } else {
+        await toast.promise(
+          updateChannel(
+            { ...data, keywords: formattedKeywords },
+            channelData?.id
+          ),
+          {
+            loading: "Редактирование канала...",
+            success: "Канал отредактирован",
+            error: "Канал не отредактирован",
+          }
+        );
       }
-      reset();
       handleSuccess();
+      reset();
     } catch (error) {
       console.error(error);
-      toast.error("Ошибка, попробуйте снова");
     }
   };
 
   const handleDelete = async () => {
     try {
-      await deleteChannel(channelData?.id);
-      toast.success("Канал удален");
+      await toast.promise(deleteChannel(channelData?.id), {
+        loading: "Удаление канала...",
+        success: "Канал удален",
+        error: "Канал не удален",
+      });
       handleSuccess();
     } catch (error) {
       console.error(error);
-      toast.error("Ошибка при удалении канала");
     }
   };
 

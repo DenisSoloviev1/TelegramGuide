@@ -19,7 +19,7 @@ export const ModalContent = styled.div<{
 }>`
   width: ${(props) => (props.$width ? props.$width : `auto`)};
   height: ${(props) => (props.$height ? props.$height : `auto`)};
-  max-height: 90%;
+  max-height: 80%;
   display: flex;
   flex-direction: column;
   border-radius: 16px;

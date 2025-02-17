@@ -7,8 +7,8 @@ export const Grid = styled.div<{ $column: number; $gap?: number }>`
   gap: ${(props) => (props.$gap ? `${props.$gap}px` : "10px")};
   margin: 20px 0 40px;
 
-  @media screen and (max-width: 900px) {
-    grid-template-columns: repeat(2, 1fr);
+  @media screen and (max-width: 800px) {
+    grid-template-columns: repeat(1, 1fr);
   }
 
   @media screen and (max-width: 670px) {

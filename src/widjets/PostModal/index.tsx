@@ -53,28 +53,35 @@ const PostModal: React.FC<PostModalProps> = ({
   const handleFormSubmit: SubmitHandler<IPost> = async (data) => {
     try {
       if (mode === "add") {
-        await addPost(data);
-        toast.success("Пост создан");
+        await toast.promise(addPost(data), {
+          loading: "Создание поста...",
+          success: "Пост создан",
+          error: "Пост не создан",
+        });
       } else {
-        await updatePost(data, postData?.id);
-        toast.success("Пост отредактирован");
+        await toast.promise(updatePost(data, postData?.id), {
+          loading: "Редактирование поста...",
+          success: "Пост отредактирован",
+          error: "Пост не отредактирован",
+        });
       }
       handleSuccess();
       reset();
     } catch (error) {
       console.error(error);
-      toast.error("Ошибка, попробуйте снова");
     }
   };
 
   const handleDelete = async () => {
     try {
-      await deletePost(postData?.id);
-      toast.success("Пост удален");
+      await toast.promise(deletePost(postData?.id), {
+        loading: "Удаление поста...",
+        success: "Пост удален",
+        error: "Пост не удален",
+      });
       handleSuccess();
     } catch (error) {
       console.error(error);
-      toast.error("Ошибка при удалении поста");
     }
   };
 

@@ -29,6 +29,10 @@ export const ChannelImage = styled.img`
 export const Name = styled.h3`
   font-size: 24px;
   font-weight: 500;
+
+  @media screen and (max-width: 900px) {
+    font-size: 20px;
+  }
 `;
 
 export const UserName = styled.span`
@@ -38,14 +42,13 @@ export const UserName = styled.span`
 export const Followers = styled.div`
   display: flex;
   align-items: center;
-  gap: 2px;
   color: var(--color-font-disable);
 `;
 
 export const KeyWords = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 5px;
 
   span {
     color: var(--color-action);
