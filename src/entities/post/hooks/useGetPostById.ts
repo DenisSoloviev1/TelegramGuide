@@ -20,7 +20,7 @@ export const useGetPostById = (postId: IPost["id"]) => {
     } catch (error) {
       console.error(error);
       setIsError(true);
-      toast.error("Ошибка загрузки поста");
+      toast.error("Пост не загружен");
       setIsLoading(false);
     } finally {
       setIsLoading(false);

@@ -17,7 +17,7 @@ export const useGetCategories = () => {
     } catch (error) {
       console.error(error);
       setIsError(true);
-      toast.error("Ошибка загрузки категорий");
+      toast.error("Категории не загружены");
       setIsLoading(false);
     } finally {
       setIsLoading(false);

@@ -29,7 +29,7 @@ export const useGetPosts = () => {
     } catch (error) {
       console.error(error);
       setIsError(true);
-      toast.error("Ошибка загрузки постов");
+      toast.error("Посты не загружены");
     } finally {
       setIsLoading(false);
     }

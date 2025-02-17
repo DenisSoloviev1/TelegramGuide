@@ -20,7 +20,7 @@ export const useGetCategoryById = (categoryId: ICategory["id"]) => {
     } catch (error) {
       console.error(error);
       setIsError(true);
-      toast.error("Ошибка загрузки категории");
+      toast.error("Категория не загружена");
       setIsLoading(false);
     } finally {
       setIsLoading(false);

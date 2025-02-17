@@ -31,7 +31,7 @@ export const useGetChannels = (
     } catch (error) {
       console.error(error);
       setIsError(true);
-      toast.error("Ошибка загрузки каналов");
+      toast.error("Каналы не загружены");
     } finally {
       setIsLoading(false);
     }

@@ -20,7 +20,7 @@ export const useGetChannelById = (channelId: IChannel["id"]) => {
     } catch (error) {
       console.error(error);
       setIsError(true);
-      toast.error("Ошибка загрузки канала");
+      toast.error("Канал не загружен");
       setIsLoading(false);
     } finally {
       setIsLoading(false);
